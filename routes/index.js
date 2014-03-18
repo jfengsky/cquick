@@ -1,33 +1,36 @@
-var fs = require('fs'),
-  url = require('url');
+/**
+[{
+  name: entry.name,
+  path: entry.path,
+  size: entry.size,
+  mtime: entry.mtime
+}]
+ */
+
+
+var readdirp = require('readdirp');
 
 module.exports = function(app){
-
-  var walk = function(dir, done) {
-    var results = [];
-    var fileItem = {};
-    fs.readdir(dir, function(err, list) {
-      if (err) return done(err);
-      var i = 0;
-      (function next() {
-        var file = list[i++],
-          filename = file;
-        if (!file) return done(null, results);
-        file = dir + '/' + file;
-        fs.stat(file, function(err, stat) {
-          fileItem = filename + '|'+ file + '|' + stat.isDirectory() + '|' + stat.size + '|' + new Date(stat.mtime).getTime();
-          results.push(fileItem);
-          next();
-        });
-      })();
+  var files = [];
+  readdirp({
+    root: './views',
+//    directoryFilter: ['!*inc'],
+    fileFilter: [ '*.jade' ]
+  }).on('data', function (entry) {
+    files.push(entry);
+  }).on('end', function(){
+    var data = [];
+    files.forEach(function(element){
+//      console.log(element);
+      data.push({
+        name: element.name,
+        path: element.path,
+        size: element.stat.size,
+        mtime: new Date(element.stat.mtime).getTime(),
+        parentdir: element.parentDir
+      });
     });
-  };
+    console.log(data);
 
-
-
-  app.get('/', function(req, res){
-    var path = req.query.path;
-    console.log(path);
-    res.render('index', { title: 'Express' });
   });
 }
