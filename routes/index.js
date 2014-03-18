@@ -29,8 +29,15 @@ module.exports = function(app){
         mtime: new Date(element.stat.mtime).getTime(),
         parentdir: element.parentDir
       });
-    });
-    console.log(data);
 
+      app.get('/', function(req, res){
+        res.send({data:data});
+      });
+
+      app.get('/pages.html', function(req, res){
+        res.render('index', { title: 'index', dev: false});
+      });
+
+    });
   });
 }
