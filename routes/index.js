@@ -14,6 +14,18 @@ var readdirp = require('readdirp');
 
 module.exports = function(app){
   var files = [];
+
+  function resize(size){
+    if(1 < size / (1024 * 1024)){
+      return ((size / (1024 * 1024)).toFixed(2) - 0) + 'mb'
+    } else {
+      return ((size / 1024 ).toFixed(2) - 0) + 'kb'
+    }
+  };
+  function formatdate(ms){
+    var date = new Date(ms);
+    return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+  };
   readdirp({
     root: './views',
 //    directoryFilter: ['!*inc'],
@@ -29,8 +41,8 @@ module.exports = function(app){
           isfolder: true,
           name: element.parentDir.split('\\')[0],
           path: "",
-          size: element.stat.size,
-          mtime: new Date(element.stat.mtime).getTime(),
+          size: resize(element.stat.size),
+          mtime: formatdate(element.stat.mtime),
           parentdir: element.parentDir
         });
       } else {
@@ -38,12 +50,12 @@ module.exports = function(app){
           isfolder: false,
           name: element.name,
           path: element.path,
-          size: element.stat.size,
-          mtime: new Date(element.stat.mtime).getTime(),
+          size: resize(element.stat.size),
+          mtime: formatdate(element.stat.mtime),
           parentdir: element.parentDir
         });
       }
-
+//      console.log(data);
 //      for(var i = 0, dataLength = data.length; i < dataLength; i++){
 //        if(data[i].name ==)
 //      }
