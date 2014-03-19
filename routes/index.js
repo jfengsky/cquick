@@ -22,52 +22,85 @@ module.exports = function(app){
       return ((size / 1024 ).toFixed(2) - 0) + 'kb'
     }
   };
+
   function formatdate(ms){
     var date = new Date(ms);
     return date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
   };
+
+  function districtArray(arr){
+    var result = {},
+        data = [];
+    for(var i = 0, arrLength = arr.length; i < arrLength; i++){
+      result[arr[i].name] = arr[i];
+    };
+    for(var key in result){
+      data.push(result[key]);
+    };
+    return data;
+  };
+
+  function filelink(filename){
+    var filesplit = filename.split('.');
+    if(filesplit[filesplit.length - 1] === 'jade'){
+      return filename.slice(0, -5) + '.html'
+    } else {
+      return filename
+    }
+  };
   readdirp({
     root: './views',
-//    directoryFilter: ['!*inc'],
-    fileFilter: [ '*.jade' ]
+    fileFilter: [ '*.*' ]
   }).on('data', function (entry) {
     files.push(entry);
   }).on('end', function(){
     var data = [];
     files.forEach(function(element){
-//      console.log(element);
       if(element.parentDir != ""){
         data.push({
-          isfolder: true,
+          type: 'close',
           name: element.parentDir.split('\\')[0],
           path: "",
           size: resize(element.stat.size),
           mtime: formatdate(element.stat.mtime),
-          parentdir: element.parentDir
+          parentdir: element.parentDir,
+          href: './' + element.parentDir.split('\\')[0]
         });
+
       } else {
         data.push({
-          isfolder: false,
+          type: 'file',
           name: element.name,
           path: element.path,
           size: resize(element.stat.size),
           mtime: formatdate(element.stat.mtime),
-          parentdir: element.parentDir
+          parentdir: element.parentDir,
+          href: './' + filelink(element.name)
+//          href: './' + element.name.replace(/\\/g,'/')
         });
+
       }
-//      console.log(data);
-//      for(var i = 0, dataLength = data.length; i < dataLength; i++){
-//        if(data[i].name ==)
-//      }
+    });
+//    console.log(follows);
+    data.unshift({
+      type: 'open',
+      name: '../',
+      path: '../',
+      size: '',
+      mtime: '',
+      parentdir: '',
+      href: ''
+    });
+    data = districtArray(data);
+    console.log(data);
+//  console.log(item.replace(/\\/g,'/'));
 
-      app.get('/pageinfo', function(req, res){
-        res.send({data:data});
-      });
+    app.get('/pageinfo', function(req, res){
+      res.send({data: data});
+    });
 
-      app.get('/pages.html', function(req, res){
-        res.render('index', { title: 'index', dev: false});
-      });
-
+    app.get('/', function(req, res){
+      res.render('index', { title: 'index', dev: false});
     });
   });
 }

@@ -8,9 +8,9 @@
           url: './pageinfo',
           catche: false
         }).success(function(data, status) {
-          $scope.filelist = data.data;
-          console.log($scope);
-        });
+            $scope.filelist = data.data;
+            console.log($scope);
+          });
       }
     ]);
     angular.bootstrap(document, ['myApp']);

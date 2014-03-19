@@ -9,7 +9,9 @@ block content
         li
           a(href="#") path
 
-  .container-fluid
+  input(type="button" value="build")
+
+  .container-fluid(ng-controller="fileListcontrol")
     table.table.table-hover
       thead
         tr
@@ -17,23 +19,11 @@ block content
           th 文件大小
           th 最后修改时间
       tbody
-        tr
+        tr(ng-repeat="fileinfo in filelist")
           td
-            span.glyphicon.glyphicon-file
-          td 2
-          td 3
-        tr
-          td
-            span.glyphicon.glyphicon-folder-open
-          td 2
-          td 3
-        tr
-          td
-            span.glyphicon.glyphicon-folder-close
-          td 2
-          td 3
-
-
-
+            span.glyphicon(ng-class="{close:'glyphicon-folder-close',file: 'glyphicon-file',open: 'glyphicon-folder-open'}[fileinfo.type]")
+            a(href="{{fileinfo.href}}") {{fileinfo.name}}
+          td {{fileinfo.size}}
+          td {{fileinfo.mtime}}
 
   script(src="inc/src/main.js")
