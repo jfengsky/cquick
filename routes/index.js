@@ -13,7 +13,8 @@ var readdirp = require('readdirp');
 
 
 module.exports = function(app){
-  var files = [];
+  var files = [],
+      filePath = [];
 
   function resize(size){
     if(1 < size / (1024 * 1024)){
@@ -31,6 +32,7 @@ module.exports = function(app){
   function districtArray(arr){
     var result = {},
         data = [];
+
     for(var i = 0, arrLength = arr.length; i < arrLength; i++){
       result[arr[i].name] = arr[i];
     };
@@ -53,6 +55,8 @@ module.exports = function(app){
     fileFilter: [ '*.*' ]
   }).on('data', function (entry) {
     files.push(entry);
+    filePath.push(entry.path.replace(/\\/g,'/'));
+    filePath.push(entry.parentDir.replace(/\\/g,'/'));
   }).on('end', function(){
     var data = [];
     files.forEach(function(element){
@@ -60,7 +64,7 @@ module.exports = function(app){
         data.push({
           type: 'close',
           name: element.parentDir.split('\\')[0],
-          path: "",
+          path: element.path.replace(/\\/g,'/'),
           size: resize(element.stat.size),
           mtime: formatdate(element.stat.mtime),
           parentdir: element.parentDir,
@@ -71,7 +75,7 @@ module.exports = function(app){
         data.push({
           type: 'file',
           name: element.name,
-          path: element.path,
+          path: element.path.replace(/\\/g,'/'),
           size: resize(element.stat.size),
           mtime: formatdate(element.stat.mtime),
           parentdir: element.parentDir,
@@ -92,8 +96,15 @@ module.exports = function(app){
       href: ''
     });
     data = districtArray(data);
-    console.log(data);
-//  console.log(item.replace(/\\/g,'/'));
+    console.log(filePath);
+    filePath.forEach(function(item){
+      var filesplit = item.split('.');
+      if(filesplit[filesplit.length - 1] === 'jade'){
+        app.get('/' + item.slice(0, -5) + '.html', function(req, res){
+          res.render(item, { title: item});
+        });
+      }
+    });
 
     app.get('/pageinfo', function(req, res){
       res.send({data: data});
