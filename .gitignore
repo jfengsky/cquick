@@ -8,3 +8,4 @@ app/config/database.php
 node_modules/
 *.iml
 .sass-cache
+*.map
