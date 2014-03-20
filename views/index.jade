@@ -22,7 +22,7 @@ block content
         tr(ng-repeat="fileinfo in filelist")
           td
             span.glyphicon(ng-class="{close:'glyphicon-folder-close',file: 'glyphicon-file',open: 'glyphicon-folder-open'}[fileinfo.type]")
-            a(href="{{fileinfo.href}}") {{fileinfo.name}}
+            a(href="javascrtipt:;" data-href="{{fileinfo.href}}") {{fileinfo.name}}
           td {{fileinfo.size}}
           td {{fileinfo.mtime}}
 

@@ -2,6 +2,7 @@ cquick
 ======
 
 ####TODO:
+  *   file页面采用单页模式
   *   一键安装bat
   *   一键watch
   *   一键build

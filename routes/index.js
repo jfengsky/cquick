@@ -126,8 +126,9 @@ module.exports = function(app){
         });
 
         app.get('/inc', function(req, res){
-          res.set('Content-Type', 'text/html');
-          res.send(fileTpl);
+          res.render('index', { title: 'index', dev: false});
+//          res.set('Content-Type', 'text/html');
+//          res.send(fileTpl);
         });
       });
   }
