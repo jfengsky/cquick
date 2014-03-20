@@ -15,15 +15,15 @@ block content
     table.table.table-hover
       thead
         tr
-          th 文件名
-          th 文件大小
-          th 最后修改时间
-      tbody
-        tr(ng-repeat="fileinfo in filelist")
-          td
-            span.glyphicon(ng-class="{close:'glyphicon-folder-close',file: 'glyphicon-file',open: 'glyphicon-folder-open'}[fileinfo.type]")
-            a(href="javascrtipt:;" data-href="{{fileinfo.href}}") {{fileinfo.name}}
-          td {{fileinfo.size}}
-          td {{fileinfo.mtime}}
+          th Name
+          th Size
+          th Modify
+      tbody#J_filelist
+        //tr(ng-repeat="fileinfo in filelist")
+        //  td
+        //    span.glyphicon(ng-class="{close:'glyphicon-folder-close',file: 'glyphicon-file',open: 'glyphicon-folder-open'}[fileinfo.type]")
+        //    a(href="javascrtipt:;" data-href="{{fileinfo.href}}") {{fileinfo.name}}
+        //  td {{fileinfo.size}}
+        //  td {{fileinfo.mtime}}
 
   script(src="inc/src/main.js")
