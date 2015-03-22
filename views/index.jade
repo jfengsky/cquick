@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  #tree.tree 树型目录
+    ul
+      li
+        span.folder
+        ul
+          li
+            span.item item
+
+  #main 中间主控制栏
+
+  #command 右侧命令输出条
+
+  script(src='/js/main.js')
