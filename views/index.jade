@@ -1,29 +1,5 @@
-extends header
+extends layout
 
 block content
-  .container-fluid
-    .row
-      ol.breadcrumb
-        li
-          a(href="#") home
-        li
-          a(href="#") path
-
-  input(type="button" value="build")
-
-  .container-fluid(ng-controller="fileListcontrol")
-    table.table.table-hover
-      thead
-        tr
-          th Name
-          th Size
-          th Modify
-      tbody#J_filelist
-        //tr(ng-repeat="fileinfo in filelist")
-        //  td
-        //    span.glyphicon(ng-class="{close:'glyphicon-folder-close',file: 'glyphicon-file',open: 'glyphicon-folder-open'}[fileinfo.type]")
-        //    a(href="javascrtipt:;" data-href="{{fileinfo.href}}") {{fileinfo.name}}
-        //  td {{fileinfo.size}}
-        //  td {{fileinfo.mtime}}
-
-  script(src="inc/src/main.js")
+  h1= title
+  p Welcome to #{title}
