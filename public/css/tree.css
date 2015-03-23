@@ -1,0 +1,13 @@
+.tree {
+  width: 20%; }
+  .tree ul, .tree li {
+    padding: 0 0 0 6px;
+    list-style: none; }
+  .tree .folder {
+    font-weight: 500; }
+    .tree .folder:before {
+      content: "+";
+      padding-right: 2px; }
+  .tree .item:before {
+    content: "-";
+    padding-right: 2px; }

@@ -1,9 +1,9 @@
-// requirejs.config({
-//   // baseUrl: "/",
-//   // paths: {
-//   //   index: 'js/index.js'
-//   // }
-//   // waitSeconds: 15
-// });
+requirejs.config({
+  baseUrl: "/",
+  paths: {
+    jquery: '/js/lib/jquery'
+  }
+  // waitSeconds: 15
+});
 
-// require(["../index"]);
+require(["/js/index.js"]);

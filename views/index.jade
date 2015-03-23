@@ -4,13 +4,30 @@ block content
   #tree.tree 树型目录
     ul
       li
-        span.folder
+        span.folder folder1
         ul
           li
-            span.item item
+            span.item item1
+          li
+            span.item item2
+          li
+            span.item item3
+          li
+            span.folder folder12
+            ul
+              li
+                span.item item11
+              li
+                span.item item12
+      li
+        span.folder folder2
+        ul
+          li
+            span.item item1
 
   #main 中间主控制栏
 
   #command 右侧命令输出条
 
+  script(src='/js/lib/require.js')
   script(src='/js/main.js')
