@@ -31,5 +31,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function() {
-  gulp.run('uglify');
+  gulp.run('watch');
 });

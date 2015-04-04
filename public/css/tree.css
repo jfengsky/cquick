@@ -8,6 +8,8 @@
     .tree .folder:before {
       content: "+";
       padding-right: 2px; }
+    .tree .folder.down:before {
+      content: "-"; }
   .tree .item:before {
     content: "-";
     padding-right: 2px; }
