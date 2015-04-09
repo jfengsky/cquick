@@ -13,7 +13,7 @@ GV.biz = {};   // 公共业务
 GV.traceLog = function(key,value){
     if (typeof window['__bfi'] == 'undefined') window['__bfi'] = [];
     window['__bfi'].push(['_tracklog', key, value]);
-}
+};
 
 /**
  * @license RequireJS domReady 2.0.1 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.

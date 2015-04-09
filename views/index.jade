@@ -1,29 +1,53 @@
 extends layout
 
 block content
-  #tree.tree 树型目录
+  #path 路径
+  #tree.tree
     ul
       li
-        span.folder folder1
+        span.folder.open
+          i
+          em folder1
         ul
           li
-            span.item item1
-          li
-            span.item item2
-          li
-            span.item item3
-          li
-            span.folder folder12
+            span.item 
+              i
+              em item1
             ul
               li
-                span.item item11
+                span.folder.open
+                  i
+                  em folder1
+          li
+            span.item.cur
+              i
+              em item2
+          li
+            span.item
+              i
+              em item3
+          li
+            span.folder
+              i
+              em folder12
+            ul
               li
-                span.item item12
+                span.item
+                  i
+                  em item11
+              li
+                span.item
+                  i
+                  em item12
       li
-        span.folder folder2
+        span.folder.open.cur
+          i
+          em folder2
         ul
           li
-            span.item item1
+            span.item
+              i
+              em item1
 
   #main 中间主控制栏
 
