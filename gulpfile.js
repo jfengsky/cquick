@@ -16,7 +16,7 @@ gulp.task('sass', function() {
 });
 
 gulp.task('uglify', function(){
-    gulp.src('public/js/vacation_global.js')
+    gulp.src('public/js/youyou.js')
         .pipe(uglify())
         .pipe(header('/* lastModify ' + tempTime + ' */\n'))
         .pipe(gulp.dest('public/'));
@@ -31,5 +31,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function() {
-  gulp.run('watch');
+  gulp.run('uglify');
 });

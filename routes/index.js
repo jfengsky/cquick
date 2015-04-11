@@ -22,9 +22,11 @@ fs.readdir(dir, function(err, list){
     return done(null, results)
   };
   list.forEach(function(file) {
-    console.log(file);
     fs.stat(dir + '/' + file, function(err, stat){
-      console.log(stat.isDirectory());
+      files.push({
+        name: file,
+        isDir: stat.isDirectory()
+      });
     });
   });
   // console.log(list);

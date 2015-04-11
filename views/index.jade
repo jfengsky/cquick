@@ -5,49 +5,9 @@ block content
   #tree.tree
     ul
       li
-        span.folder.open
-          i
-          em folder1
-        ul
-          li
-            span.item 
-              i
-              em item1
-            ul
-              li
-                span.folder.open
-                  i
-                  em folder1
-          li
-            span.item.cur
-              i
-              em item2
-          li
-            span.item
-              i
-              em item3
-          li
-            span.folder
-              i
-              em folder12
-            ul
-              li
-                span.item
-                  i
-                  em item11
-              li
-                span.item
-                  i
-                  em item12
-      li
-        span.folder.open.cur
-          i
-          em folder2
-        ul
-          li
-            span.item
-              i
-              em item1
+        span.folder
+          i(data-name="app")
+          em app
 
   #main 中间主控制栏
     input#J_getfiles(type="button", value="click")
