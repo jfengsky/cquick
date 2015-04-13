@@ -9,13 +9,13 @@ define(function(require, exports, module) {
       if(_data.isDir){
         tpl = '<li>' +
                   '<span class="folder">' +
-                    '<i data-name="' + _data.name + '"></i>' +
+                    '<i data-name="' + _data.filePath + '"></i>' +
                     '<em>' + _data.name + '</em>' +
                   '</span>' +
                 '</li>';
       } else {
         tpl = '<li>' +
-                  '<span class="item">' +
+                  '<span class="item" data-fullpath="' + _data.filePath + '">' +
                     '<i></i>' +
                     '<em>' + _data.name + '</em>' +
                   '</span>' +
@@ -67,8 +67,10 @@ define(function(require, exports, module) {
         if($this.attr('data-hasget') !== 'true'){
           $.ajax({
             url: '/files',
-            type: 'get',
-            data: {},
+            type: 'post',
+            data: {
+              path: folderName
+            },
             success: function (data) {
               var str = '';
               data.forEach(function(_item){

@@ -26,10 +26,7 @@ gulp.task('watch', function() {
   gulp.watch('public/css/*.sass', ['sass']);
 });
 
-gulp.task('watch', function() {
-  gulp.watch('public/css/*.sass', ['sass']);
-});
 
 gulp.task('default', function() {
-  gulp.run('uglify');
+  gulp.run('watch');
 });
