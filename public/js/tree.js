@@ -61,8 +61,6 @@ define(function(require, exports, module) {
         var $this = $(this),
             folderName = $this.attr('data-name');
 
-        console.log(folderName);
-
         // 判断是否请求过
         if($this.attr('data-hasget') !== 'true'){
           $.ajax({
@@ -91,7 +89,6 @@ define(function(require, exports, module) {
       this._selete();
     }
   };
-
-  new Tree().init();
   
+  module.exports = Tree;
 });

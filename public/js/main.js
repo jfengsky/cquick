@@ -7,4 +7,3 @@ requirejs.config({
 });
 
 require(["/js/index.js"]);
-require(["/js/tree.js"]);

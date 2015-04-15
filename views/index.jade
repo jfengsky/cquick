@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  #path 路径
+  #path 路径:
+    span#J_fullpath
   #tree.tree
     ul
       li
@@ -10,8 +11,13 @@ block content
           em app
 
   #main 中间主控制栏
-    input#J_getfiles(type="button", value="click")
-  #command 右侧命令输出条
+    label 压缩
+      input(type="checkbox") 
+
+    input#J_getfiles(type="button", value="打包")
+  #command.command
+    .bg
+    .textview 测试文字
 
   script(src='/js/lib/require.js')
   script(src='/js/main.js')
