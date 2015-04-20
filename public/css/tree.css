@@ -1,7 +1,11 @@
 .tree {
   width: 30%;
   border: 1px solid #eee;
-  padding: 6px; }
+  padding: 6px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  height: 400px;
+  float: left; }
   .tree em {
     font-style: normal; }
   .tree ul, .tree li {
