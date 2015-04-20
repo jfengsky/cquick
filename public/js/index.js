@@ -7,8 +7,13 @@ define(function(require, exports, module) {
     // 导航地址
     filePath = require('./filePath.js');
 
+    // 压缩按钮
+    compress = require('./compress.js');
+
     new tree().init();
 
     new filePath().init();
+
+    compress.init();
     
 });

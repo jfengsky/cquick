@@ -10,14 +10,15 @@ block content
           i(data-name="app")
           em app
 
-  #main.main 中间主控制栏
-    label 压缩
-      input(type="checkbox") 
-
-    input#J_getfiles(type="button", value="打包")
-  #command.command(style="display:none")
+  #main.main
+    .checkbox
+      label
+        input(type="checkbox")
+        span 压缩 
+    button(disabled="disabled")#J_getfiles.btn.btn-default 打包
+  #command.command
     .bg
-    .textview 测试文字
+    .textview
 
   script(src='/js/lib/require.js')
   script(src='/js/main.js')
