@@ -10,10 +10,15 @@ define(function(require, exports, module) {
     // 压缩按钮
     compress = require('./compress.js');
 
+    // git 修改
+    git = require('./git.js');
+
     new tree().init();
 
     new filePath().init();
 
     compress.init();
+
+    git.init();
     
 });
