@@ -28,5 +28,5 @@ gulp.task('watch', function() {
 
 
 gulp.task('default', function() {
-  gulp.run('watch');
+  gulp.run('uglify');
 });

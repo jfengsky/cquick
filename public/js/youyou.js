@@ -681,9 +681,14 @@
       self._sending(true);
 
       // 判断容器高度 you_content
-      if($('#asw' + questionIndex).find('.you_content').height() >= 212){
-        $('#asw' + questionIndex).find('.exceed_btn').show();
-      }
+
+      var tempAsw = $('#asw' + questionIndex),
+          youContentArr = tempAsw.find('.you_content');
+      $.map(youContentArr, function(_item){
+        if( $(_item).height() >= 212 ){
+          $(_item).next().show()
+        }
+      });
 
       // 滚动到底部
       self._scrollBottom();
@@ -829,11 +834,10 @@
     };
 
     this._sendParamData = function(_obj){
-      var dataStr = $G(_obj).attr('data'),
-          dataJson = this._strToJson(dataStr),
-          questionChar = dataJson.DT;
+      var dataStr = $(_obj).attr('data');
 
-      dataJson.SQ = questionIndex;
+      var dataJson = this._strToJson(decodeURIComponent(dataStr));
+      var questionChar = dataJson.DT;
 
       // 精确模式
       questionType = 1;
@@ -847,7 +851,12 @@
 
       this._sendData({
         url: SEARCHURL,
-        param: dataJson,
+        param: {
+          "M": 1, // 搜索模式，1精确模式，2模糊模式
+          "PID": productId, // 产品id, 没有传0
+          "K": dataStr, // 问题字符串
+          "SQ": questionIndex // 提问序列号
+        },
         callback: self._answers,
         error: self._dataError
       });
@@ -1077,6 +1086,10 @@
      *
      */
     this._boxInit = function() {
+
+      // 左下加入游游助手按钮
+      $('#Div1').append('<div class="browse_fixed" id="J_minyouyou" style="left:0; bottom:60px;"><div class="browse_fixed_box"> <a href="###">游游助手</a></div></div>');
+
 
       // 点击游游助手按钮
       this._offlineClick();
