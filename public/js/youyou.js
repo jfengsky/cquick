@@ -937,6 +937,9 @@
       // 相关问题点击直接发送请求的事件代理
       $G('J_chatbox').bind('click', function(ev) {
         var evTarget = ev.srcElement ? ev.srcElement : ev.target;
+        if(evTarget.nodeName !== 'A' ){
+          evTarget = evTarget.parentNode
+        };
         var targetType = $G(evTarget).attr('data-type');
         var targetData = $G(evTarget).attr('data');
         if (targetType === 'feedback') {
