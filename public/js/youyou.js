@@ -197,7 +197,7 @@
       }
     },
 
-    
+
 
     /**
      * 绑定事件
@@ -275,10 +275,10 @@
 
     /**
      * 把字符串转化为json
-     * @param  {String} str 
-     * @return {Object}     
+     * @param  {String} str
+     * @return {Object}
      */
-    this._strToJson = function(str){
+    this._strToJson = function(str) {
       var json = (new Function("return " + str))();
       return json;
     };
@@ -683,9 +683,9 @@
       // 判断容器高度 you_content
 
       var tempAsw = $('#asw' + questionIndex),
-          youContentArr = tempAsw.find('.you_content');
-      $.map(youContentArr, function(_item){
-        if( $(_item).height() >= 212 ){
+        youContentArr = tempAsw.find('.you_content');
+      $.map(youContentArr, function(_item) {
+        if ($(_item).height() >= 212) {
           $(_item).next().show()
         }
       });
@@ -833,7 +833,7 @@
       });
     };
 
-    this._sendParamData = function(_obj){
+    this._sendParamData = function(_obj) {
       var dataStr = $(_obj).attr('data');
 
       var dataJson = this._strToJson(decodeURIComponent(dataStr));
@@ -937,7 +937,7 @@
       // 相关问题点击直接发送请求的事件代理
       $G('J_chatbox').bind('click', function(ev) {
         var evTarget = ev.srcElement ? ev.srcElement : ev.target;
-        if(evTarget.nodeName !== 'A' ){
+        if (evTarget.nodeName === 'SPAN') {
           evTarget = evTarget.parentNode
         };
         var targetType = $G(evTarget).attr('data-type');
@@ -949,7 +949,7 @@
           // 相关问题
           self._sendRelateData(evTarget);
         };
-        if(targetData){
+        if (targetData) {
           self._sendParamData(evTarget);
         }
       });
@@ -1063,9 +1063,13 @@
           $(this).removeAttr('style');
         },
         'mousedown': function(ev) {
-          offset_x = ev.offsetX;
-          offset_y = ev.offsetY;
-          canDrag = true;
+
+          // 避免点到关闭按钮产生问题
+          if (ev.target.nodeName === 'H1') {
+            offset_x = ev.offsetX;
+            offset_y = ev.offsetY;
+            canDrag = true;
+          }
         },
         'mouseup': function() {
           canDrag = false;
@@ -1115,9 +1119,9 @@
       };
 
       // 展开收缩效果
-      $(document).delegate('.exceed_btn', 'click', function(){
+      $(document).delegate('.exceed_btn', 'click', function() {
         var tag = $(this).attr('data-tag');
-        if(!tag || tag === 'show'){
+        if (!tag || tag === 'show') {
           // 展开
           $(this).text('收起').prev().removeClass('content_exceed');
           $(this).attr('data-tag', 'hide');
