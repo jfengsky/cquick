@@ -1,0 +1,17 @@
+{
+  "name": "webpack1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack",
+    "start pro": "webpack webpack --progress --colors",
+    "watch": "webpack --progress --colors --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
