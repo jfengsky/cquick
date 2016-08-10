@@ -1,17 +1,27 @@
 const webpack = require('webpack')
 module.exports = {
-    entry: [
-        // 'webpack-dev-server/client?http://localhost:8080',
-        // 'webpack/hot/dev-server',
-        './test/src/app.js'
-    ],
+    // entry: [
+    //     // 'webpack-dev-server/client?http://localhost:8080',
+    //     // 'webpack/hot/dev-server',
+    //     './test/src/app.js',
+    // ],
+    entry: {
+        bundle: [
+            'webpack-dev-server/client?http://localhost:8080',
+            './test/src/app.js'
+        ],
+        dVendor: ['jQuery','./lib/backbone.js', './lib/underscore.js']
+    },
     output: {
         path: './test/dist',
         filename: '[name].js'
     },
     externals: {
         // 遇到require这些时, 不需要再编译. 适合那些常用的库, 已经在页面通过<script>引入了, 就无需都打包到一起了
-        jquery: 'jQuery'
+        backbone: 'backbone',
+        underscore: 'underscore',
+        jQuery: 'jQuery'
+        
     },
     module:{
         loaders:[
@@ -34,9 +44,23 @@ module.exports = {
         // 打包时间戳在这里加入
         new webpack.BannerPlugin("Copyright Flying Unicorns inc."),
 
-        new webpack.optimize.UglifyJsPlugin()
+        //这个可以使jquery变成全局变量，妮不用在自己文件require('jquery')了
+        new webpack.ProvidePlugin({
+            backbone: 'backbone',
+            underscore: 'underscore',
+            jQuery: 'jQuery'
+        }),
+
+        //这是妮第三方库打包生成的文件
+        // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+
+        new webpack.optimize.OccurenceOrderPlugin(),
+
+        // new webpack.optimize.UglifyJsPlugin()
     ],
     devServer: {
         hot: true
     }
+    // ,
+    // devtool: 'source-map'
 }
