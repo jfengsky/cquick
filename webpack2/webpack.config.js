@@ -32,7 +32,9 @@ module.exports = {
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
         // 打包时间戳在这里加入
-        new webpack.BannerPlugin("Copyright Flying Unicorns inc.")
+        new webpack.BannerPlugin("Copyright Flying Unicorns inc."),
+
+        new webpack.optimize.UglifyJsPlugin()
     ],
     devServer: {
         hot: true
