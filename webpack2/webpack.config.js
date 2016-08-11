@@ -22,9 +22,10 @@ module.exports = {
     },
     externals: {
         // 遇到require这些时, 不需要再编译. 适合那些常用的库, 已经在页面通过<script>引入了, 就无需都打包到一起了
-        backbone: 'backbone',
+        Backbone: 'backbone',
         underscore: 'underscore',
-        jQuery: 'jQuery'
+        _:'underscore',
+        jQuery: 'jquery'
         
     },
     module:{
@@ -50,15 +51,17 @@ module.exports = {
 
         //这个可以使jquery变成全局变量，不用在自己文件require('jquery')了
         new webpack.ProvidePlugin({
-            backbone: 'backbone',
-            underscore: 'underscore',
-            jQuery: 'jQuery'
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery',
+            _:'underscore',
+            Backbone: 'backbone'
+            
         }),
 
         //这是妮第三方库打包生成的文件
-        // new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+        new webpack.optimize.CommonsChunkPlugin('vendor'),
 
-        new webpack.optimize.OccurenceOrderPlugin(),
+        // new webpack.optimize.OccurenceOrderPlugin(),
 
         // new webpack.optimize.UglifyJsPlugin()
     ],
