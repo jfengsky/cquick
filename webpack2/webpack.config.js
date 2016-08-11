@@ -1,4 +1,8 @@
 const webpack = require('webpack')
+const moment = require('moment')
+
+const buildTime = moment().format("YYYY-MM-DD HH:mm")
+const bannerText = ` ${buildTime} `
 module.exports = {
     // entry: [
     //     // 'webpack-dev-server/client?http://localhost:8080',
@@ -7,10 +11,10 @@ module.exports = {
     // ],
     entry: {
         bundle: [
-            'webpack-dev-server/client?http://localhost:8080',
+            // 'webpack-dev-server/client?http://localhost:8080',
             './test/src/app.js'
         ],
-        dVendor: ['jQuery','./lib/backbone.js', './lib/underscore.js']
+        dVendor: ['./lib/jquery','./lib/backbone.js', './lib/underscore.js']
     },
     output: {
         path: './test/dist',
@@ -42,9 +46,9 @@ module.exports = {
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
         // 打包时间戳在这里加入
-        new webpack.BannerPlugin("Copyright Flying Unicorns inc."),
+        new webpack.BannerPlugin(bannerText),
 
-        //这个可以使jquery变成全局变量，妮不用在自己文件require('jquery')了
+        //这个可以使jquery变成全局变量，不用在自己文件require('jquery')了
         new webpack.ProvidePlugin({
             backbone: 'backbone',
             underscore: 'underscore',
