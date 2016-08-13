@@ -6,12 +6,19 @@ webpackJsonp([2,3],[
 	'use strict';
 
 	var Person = Backbone.Model.extend({
+	    urlRoot: '/user',
 	    initialize: function initialize() {
 	        var _this = this;
 
 	        console.log('create mode');
 	        this.bind('change:age', function () {
 	            console.log('name Change:' + _this.get('name'));
+	        });
+
+	        // 对所有属性进行监听
+	        this.on('change', function (model) {
+	            console.log('model:');
+	            console.log(model);
 	        });
 
 	        this.bind('error', function (model, error) {
@@ -39,6 +46,15 @@ webpackJsonp([2,3],[
 	person.set({
 	    name: '',
 	    age: 100
+	});
+
+	person.save({
+	    name: 'joe',
+	    age: 99
+	}, {
+	    success: function success(user) {
+	        console.log(user);
+	    }
 	});
 
 /***/ }
