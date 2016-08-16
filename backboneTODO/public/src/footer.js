@@ -1,6 +1,9 @@
 /**
  * 页脚筛选操作模块
  */
+
+const FooterContent = Backbone.View.extend()
+
 const LeftView = Backbone.View.extend({
     tagName: 'span',
     attributes: {
