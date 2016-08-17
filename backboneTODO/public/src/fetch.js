@@ -17,13 +17,13 @@ export const FETCH_LIST = data => {
 }
 
 /**
- * 添加任务
+ * 添加 删除 更新 清除任务
  * @param  {Object} data 
  * @return {PromseObject}
  */
-export const TASK_ADD = data => {
+export const TASK_UPDATA = data => {
     const setting = {
-        url: '/add',
+        url: '/updata',
         type: 'post',
         dataType: 'json',
         data

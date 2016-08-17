@@ -2,6 +2,10 @@
  * header 区块
  */
 
+import GV from './gv'
+
+import { TASK_UPDATA } from './fetch'
+
 /**
  * 声明Model对象
  * 
@@ -52,12 +56,29 @@ const HeaderView = Backbone.View.extend({
         return this
     },
     taskKeyPress(e){
-
+        let desc = $(e.target).val()
         // 文本框回车
         if( e.keyCode === 13 ){
-            this.model.set('task', '')
+            // this.model.set('task', '')
             
-            // 把 $(e.target).val() 传给另一个模块
+            // 告诉服务器添加一个task
+            TASK_UPDATA({
+                type: 'add',
+                desc
+            })
+            .catch()
+            .then( data => {
+                if(data.success){
+                    const addData = {
+                        id: data.id,
+                        desc,
+                        done: false
+                    }
+                    GV.list.push(addData)
+                    GV.todoTaskCollection.add(addData)
+                    $('#new-todo').val('')
+                }
+            })
         }
     }
 })

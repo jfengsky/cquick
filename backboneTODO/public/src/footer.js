@@ -1,17 +1,30 @@
 /**
  * 页脚筛选操作模块
  */
+import GV from './gv'
 
+/**
+ * 页脚筛选集合对象
+ * 
+ */
 
+// 完成的任务列表
+// let hasDoneTask = []
 
 const FooterCollection = Backbone.Collection.extend()
 
-const countObj = {
-    type: 'count',
-    total: 0,
-    txt: 'items left'
-}
+// 总计
 
+const CountModel = Backbone.Model.extend({
+    defaults: {
+        type: 'count',
+        total: 0
+    }
+})
+
+const countObj = new CountModel()
+
+// 筛选
 const filterList = {
     type: 'filter',
     list:[{
@@ -26,25 +39,40 @@ const filterList = {
     }]
 }
 
+// 清除已完成
 const clearObj = {
     type: 'clear',
     total: 0,
     txt: 'Clear completed'
 }
 
-
+/**
+ * 总计View对象
+ */
 const LeftView = Backbone.View.extend({
     tagName: 'span',
     attributes: {
         id: 'todo-count'
     },
+    _tpl(total){
+        return `<strong>${total}</strong> items left`
+    },
     initialize(){
         this.render()
+        this.listenTo(this.model, 'change', this.countChange)
     },
     render(){
         let json = this.model.toJSON()
-        this.$el.html(`<strong>${json.total}</strong> ${json.txt}`)
+        this.$el.html(this._tpl(json.total))
         return this
+    },
+
+    /**
+     * 修改份数
+     * 
+     */
+    countChange(){
+        $('#todo-count').html(this._tpl(GV.list.length))
     }
 })
 
@@ -69,6 +97,9 @@ const filterListView = Backbone.View.extend({
     }
 })
 
+/**
+ * 清除完成对象
+ */
 const clearCompleteView = Backbone.View.extend({
     tagName: 'button',
     attributes: {
@@ -97,6 +128,7 @@ const FooterCollectionView = Backbone.View.extend({
     },
     render(){
         this.collection.map(this.itemRend, this)
+        this.$el.appendTo($('#todoapp'))
     },
 
     /**
@@ -122,18 +154,41 @@ const FooterCollectionView = Backbone.View.extend({
         if(filterItem){
             this.$el.append(filterItem.$el)
         }
-        // this.$el.append(filterItem.$el)
     }
 })
 
-const footerCollection = new FooterCollection([countObj, filterList, clearObj])
+/**
+ * 获取完成的task
+ * @param  {Array} data  所有任务
+ * @return {Array}      
+ */
+let getFinishTask = data => {
+    let tempTask = []
+    if(data.length){
+        data.map( item => {
+            if (item.done) {
+                tempTask.push(item)
+            }
+        })
+    }
+    return tempTask
+}
 
 const Footer = {
     init(){
-        let temp = new FooterCollectionView({
+
+        let list = GV.list
+        let hasDoneTask = getFinishTask(list)
+
+        // 重新计算任务个数
+        // countObj.total = list.length
+        // clearObj.total = hasDoneTask.length
+
+        const footerCollection = new FooterCollection([CountModel, filterList, clearObj])
+
+        new FooterCollectionView({
             collection: footerCollection
         })
-        $('#todoapp').append(temp.$el)
     }
 }
 

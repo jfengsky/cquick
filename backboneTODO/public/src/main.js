@@ -18,15 +18,19 @@ import { FETCH_LIST } from './fetch'
 
 $(document).ready(()=>{
 
-    // 初始化各个区块
+    // 初始头部区块
     Header.init()
-    TaskList.init()
-    Footer.init()
 
-    // 从服务器获取已经存在的数据
-    FETCH_LIST('data')
+    // 从服务器获取task数据
+    FETCH_LIST()
     .catch()
     .then( data => {
         GV.list = data
+
+        // 初始化列表区块
+        TaskList.init()
+
+        // 初始化页脚区块
+        Footer.init()
     })
 })
