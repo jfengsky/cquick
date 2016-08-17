@@ -112,7 +112,7 @@ var NoteCollectionView = Backbone.View.extend({
 
 var noteCollection = new NoteCollection([note1, note2, note3]);
 
-var noteCollectionView = new NoteCollectionView({collection: noteCollection});
+var VnoteCollectionView = new NoteCollectionView({collection: noteCollection});
 
 $( '#note_list' ).html( noteCollectionView.el );
 

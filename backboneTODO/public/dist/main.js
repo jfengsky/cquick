@@ -1,4 +1,4 @@
-/*!  2016-08-16 17:12  */
+/*!  2016-08-17 09:58  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -24,11 +24,11 @@ webpackJsonp([0,1],[
 
 	var _taskList2 = _interopRequireDefault(_taskList);
 
-	var _footer = __webpack_require__(6);
+	var _footer = __webpack_require__(5);
 
 	var _footer2 = _interopRequireDefault(_footer);
 
-	var _fetch = __webpack_require__(5);
+	var _fetch = __webpack_require__(6);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -278,6 +278,151 @@ webpackJsonp([0,1],[
 
 	exports.__esModule = true;
 	/**
+	 * 页脚筛选操作模块
+	 */
+
+	var FooterCollection = Backbone.Collection.extend();
+
+	var countObj = {
+	    type: 'count',
+	    total: 0,
+	    txt: 'items left'
+	};
+
+	var filterList = {
+	    type: 'filter',
+	    list: [{
+	        title: 'All',
+	        select: true
+	    }, {
+	        title: 'Active',
+	        select: false
+	    }, {
+	        title: 'Completed',
+	        select: false
+	    }]
+	};
+
+	var clearObj = {
+	    type: 'clear',
+	    total: 0,
+	    txt: 'Clear completed'
+	};
+
+	var LeftView = Backbone.View.extend({
+	    tagName: 'span',
+	    attributes: {
+	        id: 'todo-count'
+	    },
+	    initialize: function initialize() {
+	        this.render();
+	    },
+	    render: function render() {
+	        var json = this.model.toJSON();
+	        this.$el.html('<strong>' + json.total + '</strong> ' + json.txt);
+	        return this;
+	    }
+	});
+
+	/**
+	 * 底部筛选对象
+	 */
+	var filterListView = Backbone.View.extend({
+	    tagName: 'ul',
+	    attributes: {
+	        id: 'filters'
+	    },
+	    initialize: function initialize() {
+	        this.render();
+	    },
+	    render: function render() {
+	        this.model.map(this.itemRend, this);
+	    },
+	    itemRend: function itemRend(itemModel) {
+	        var selectClass = itemModel.select ? 'class="selected"' : '';
+	        this.$el.append('<li><a ' + selectClass + ' href="#/' + itemModel.title + '">' + itemModel.title + '</a></li>');
+	    }
+	});
+
+	var clearCompleteView = Backbone.View.extend({
+	    tagName: 'button',
+	    attributes: {
+	        id: 'clear-completed'
+	    },
+	    initialize: function initialize() {
+	        this.render();
+	    },
+	    render: function render() {
+	        var json = this.model.toJSON();
+	        this.$el.html(json.txt + '(' + json.total + ')');
+	    }
+	});
+
+	/**
+	 * 页脚View集合对象
+	 * @type {[type]}
+	 */
+	var FooterCollectionView = Backbone.View.extend({
+	    tagName: 'footer',
+	    attributes: {
+	        id: 'footer'
+	    },
+	    initialize: function initialize() {
+	        this.render();
+	    },
+	    render: function render() {
+	        this.collection.map(this.itemRend, this);
+	    },
+
+
+	    /**
+	     * 渲染每个li
+	     * @return {[type]} [description]
+	     */
+	    itemRend: function itemRend(model) {
+	        var json = model.toJSON();
+	        var filterItem = void 0;
+	        if (json.type === 'count') {
+	            filterItem = new LeftView({
+	                model: model
+	            });
+	        } else if (json.type === 'filter') {
+	            filterItem = new filterListView({
+	                model: json.list
+	            });
+	        } else {
+	            filterItem = new clearCompleteView({
+	                model: model
+	            });
+	        }
+	        if (filterItem) {
+	            this.$el.append(filterItem.$el);
+	        }
+	        // this.$el.append(filterItem.$el)
+	    }
+	});
+
+	var footerCollection = new FooterCollection([countObj, filterList, clearObj]);
+
+	var Footer = {
+	    init: function init() {
+	        var temp = new FooterCollectionView({
+	            collection: footerCollection
+	        });
+	        $('#todoapp').append(temp.$el);
+	    }
+	};
+
+	exports.default = Footer;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	/**
 	 * 项目用到的所有ajax请求
 	 * 
 	 */
@@ -308,99 +453,6 @@ webpackJsonp([0,1],[
 	    };
 	    return Promise.resolve($.ajax(setting));
 	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	/**
-	 * 页脚筛选操作模块
-	 */
-	var LeftView = Backbone.View.extend({
-	    tagName: 'span',
-	    attributes: {
-	        id: 'todo-count'
-	    },
-	    initialize: function initialize() {},
-	    render: function render() {
-	        this.$el.html('<strong>5</strong>items left');
-	    }
-	});
-
-	var FooterCollection = Backbone.Collection.extend();
-
-	var filter = [{
-	    title: 'All',
-	    select: true
-	}, {
-	    title: 'Active',
-	    select: false
-	}, {
-	    title: 'Completed',
-	    select: false
-	}];
-
-	/**
-	 * 底部筛选对象
-	 */
-	var filterListView = Backbone.View.extend({
-	    tagName: 'li',
-	    initialize: function initialize() {
-	        this.render();
-	    },
-	    render: function render() {
-	        var data = this.model.toJSON();
-	        var title = data.title;
-	        var selectClass = data.select ? 'class="selected"' : '';
-	        this.$el.html('<a ' + selectClass + ' href="#/' + title + '">' + title + '</a>');
-	        return this;
-	    }
-	});
-
-	/**
-	 * 页脚View集合对象
-	 * @type {[type]}
-	 */
-	var FooterCollectionView = Backbone.View.extend({
-	    tagName: 'ul',
-	    attributes: {
-	        id: 'filters'
-	    },
-	    initialize: function initialize() {
-	        this.render();
-	    },
-	    render: function render() {
-	        this.collection.map(this.itemRend, this);
-	    },
-
-
-	    /**
-	     * 渲染每个li
-	     * @return {[type]} [description]
-	     */
-	    itemRend: function itemRend(model) {
-	        var filterItem = new filterListView({
-	            model: model
-	        });
-	        this.$el.append(filterItem.$el);
-	    }
-	});
-
-	var footerCollection = new FooterCollection(filter);
-
-	var Footer = {
-	    init: function init() {
-	        var temp = new FooterCollectionView({
-	            collection: footerCollection
-	        });
-	        $('body').append(temp.$el);
-	    }
-	};
-
-	exports.default = Footer;
 
 /***/ }
 ]);
