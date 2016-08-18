@@ -12,7 +12,7 @@ const TaskTopView = Backbone.View.extend({
         id: 'main'
     },
     initialize(){
-        this.render().$el.appendTo('#todoapp')
+        this.render()
     },
     render(){
         this.$el.html(`<input id="toggle-all" type="checkbox" /><label for="toggle-all">Mark all as complete</label>`)
@@ -22,7 +22,7 @@ const TaskTopView = Backbone.View.extend({
 
 
 /**
- * 创建任务视图对象
+ * 创建任务列表视图对象
  * @type {[type]}
  */
 const TaskView = Backbone.View.extend({
@@ -63,6 +63,8 @@ const TaskCollection = Backbone.Collection.extend({
           model
         })
         $('#todo-list').prepend(newTask.$el)
+        // 修改任务数量
+        GV.countObj.set('total',collection.size())
       },
       done(model, collection, options){
         console.log('task done')
@@ -81,8 +83,6 @@ const TaskCollectionView = Backbone.View.extend({
         id: 'todo-list'
     },
     initialize(){
-        // this.listenTo(this.collection, 'add', this.addTask)
-        // this.collection.on('add', this.itemRend, this)
         this.render()
     },
     render(){
@@ -101,21 +101,28 @@ const TaskCollectionView = Backbone.View.extend({
         })
         this.$el.append(tempTaskView.render().$el)
     }
-    // ,
-    // addTask(model){
-    //   debugger
-    // }
 })
 
 const TaskList = {
     init(){
         let tempData = GV.list
-        new TaskTopView()
+
+        // task主容器DOM
+        let taskListContent = new TaskTopView()
+
+        // 生成任务列表
         let todoTaskCollection = new TaskCollection(tempData)
         let todoTadkCollectionView = new TaskCollectionView({
             collection: todoTaskCollection
         })
-        $('#main').append(todoTadkCollectionView.$el)
+
+        // 把任务列表加入到task主容器中
+        taskListContent.$el.append(todoTadkCollectionView.$el)
+
+        // 把task主容器一次放入页面中
+        taskListContent.$el.appendTo('#todoapp')
+
+        // 任务列表集合存入全局变量，方便其它模块添加task
         GV.todoTaskCollection = todoTaskCollection
     }
 }

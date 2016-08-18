@@ -42,14 +42,14 @@ const HeaderView = Backbone.View.extend({
         this.render().$el.appendTo($('#todoapp'))
 
         // 监听input事件
-        this.listenTo(this.model,'change', this.taskChange)
+        // this.listenTo(this.model,'change', this.taskChange)
     },
     events:{
         'keypress #new-todo': 'taskKeyPress'
     },
-    taskChange(){
-        this.initialize()
-    },
+    // taskChange(){
+    //     this.initialize()
+    // },
     render(){
         const headerData = this.model.toJSON()
         this.$el.html(`<h1>${headerData.title}</h1><input id="new-todo" value="${headerData.task}" placeholder="${headerData.placeholder}">`)
@@ -59,8 +59,11 @@ const HeaderView = Backbone.View.extend({
         let desc = $(e.target).val()
         // 文本框回车
         if( e.keyCode === 13 ){
-            // this.model.set('task', '')
             
+            // 数据验证
+            if (desc.length < 3){
+                return false
+            }
             // 告诉服务器添加一个task
             TASK_UPDATA({
                 type: 'add',
@@ -76,6 +79,8 @@ const HeaderView = Backbone.View.extend({
                     }
                     GV.list.push(addData)
                     GV.todoTaskCollection.add(addData)
+
+                    // 清空input
                     $('#new-todo').val('')
                 }
             })

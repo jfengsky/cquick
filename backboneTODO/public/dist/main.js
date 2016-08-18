@@ -1,4 +1,4 @@
-/*!  2016-08-17 09:58  */
+/*!  2016-08-18 13:45  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -20,15 +20,15 @@ webpackJsonp([0,1],[
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _taskList = __webpack_require__(4);
+	var _taskList = __webpack_require__(5);
 
 	var _taskList2 = _interopRequireDefault(_taskList);
 
-	var _footer = __webpack_require__(5);
+	var _footer = __webpack_require__(6);
 
 	var _footer2 = _interopRequireDefault(_footer);
 
-	var _fetch = __webpack_require__(6);
+	var _fetch = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,13 +37,12 @@ webpackJsonp([0,1],[
 
 	// 头部模块
 	$(document).ready(function () {
-
-	    // 初始头部区块
-	    _header2.default.init();
-
 	    // 从服务器获取task数据
 	    (0, _fetch.FETCH_LIST)().catch().then(function (data) {
 	        _gv2.default.list = data;
+
+	        // 初始头部区块
+	        _header2.default.init();
 
 	        // 初始化列表区块
 	        _taskList2.default.init();
@@ -91,7 +90,7 @@ webpackJsonp([0,1],[
 
 	var _gv2 = _interopRequireDefault(_gv);
 
-	var _fetch = __webpack_require__(6);
+	var _fetch = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -135,15 +134,15 @@ webpackJsonp([0,1],[
 	        this.render().$el.appendTo($('#todoapp'));
 
 	        // 监听input事件
-	        this.listenTo(this.model, 'change', this.taskChange);
+	        // this.listenTo(this.model,'change', this.taskChange)
 	    },
 
 	    events: {
 	        'keypress #new-todo': 'taskKeyPress'
 	    },
-	    taskChange: function taskChange() {
-	        this.initialize();
-	    },
+	    // taskChange(){
+	    //     this.initialize()
+	    // },
 	    render: function render() {
 	        var headerData = this.model.toJSON();
 	        this.$el.html('<h1>' + headerData.title + '</h1><input id="new-todo" value="' + headerData.task + '" placeholder="' + headerData.placeholder + '">');
@@ -153,8 +152,11 @@ webpackJsonp([0,1],[
 	        var desc = $(e.target).val();
 	        // 文本框回车
 	        if (e.keyCode === 13) {
-	            // this.model.set('task', '')
 
+	            // 数据验证
+	            if (desc.length < 3) {
+	                return false;
+	            }
 	            // 告诉服务器添加一个task
 	            (0, _fetch.TASK_UPDATA)({
 	                type: 'add',
@@ -168,6 +170,8 @@ webpackJsonp([0,1],[
 	                    };
 	                    _gv2.default.list.push(addData);
 	                    _gv2.default.todoTaskCollection.add(addData);
+
+	                    // 清空input
 	                    $('#new-todo').val('');
 	                }
 	            });
@@ -195,6 +199,45 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	/**
+	 * 项目用到的所有ajax请求
+	 * 
+	 */
+
+	/**
+	 * 获取全部任务数据
+	 */
+	var FETCH_LIST = exports.FETCH_LIST = function FETCH_LIST(data) {
+	    var setting = {
+	        url: '/getAllTask',
+	        type: 'post',
+	        dataType: 'json'
+	    };
+	    return Promise.resolve($.ajax(setting));
+	};
+
+	/**
+	 * 添加 删除 更新 清除任务
+	 * @param  {Object} data 
+	 * @return {PromseObject}
+	 */
+	var TASK_UPDATA = exports.TASK_UPDATA = function TASK_UPDATA(data) {
+	    var setting = {
+	        url: '/updata',
+	        type: 'post',
+	        dataType: 'json',
+	        data: data
+	    };
+	    return Promise.resolve($.ajax(setting));
+	};
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -216,7 +259,7 @@ webpackJsonp([0,1],[
 	        id: 'main'
 	    },
 	    initialize: function initialize() {
-	        this.render().$el.appendTo('#todoapp');
+	        this.render();
 	    },
 	    render: function render() {
 	        this.$el.html('<input id="toggle-all" type="checkbox" /><label for="toggle-all">Mark all as complete</label>');
@@ -225,7 +268,7 @@ webpackJsonp([0,1],[
 	});
 
 	/**
-	 * 创建任务视图对象
+	 * 创建任务列表视图对象
 	 * @type {[type]}
 	 */
 	/**
@@ -263,6 +306,8 @@ webpackJsonp([0,1],[
 	                    model: model
 	                });
 	                $('#todo-list').prepend(newTask.$el);
+	                // 修改任务数量
+	                _gv2.default.countObj.set('total', collection.size());
 	            },
 	            done: function done(model, collection, options) {
 	                console.log('task done');
@@ -281,8 +326,6 @@ webpackJsonp([0,1],[
 	        id: 'todo-list'
 	    },
 	    initialize: function initialize() {
-	        // this.listenTo(this.collection, 'add', this.addTask)
-	        // this.collection.on('add', this.itemRend, this)
 	        this.render();
 	    },
 	    render: function render() {
@@ -302,22 +345,28 @@ webpackJsonp([0,1],[
 	        });
 	        this.$el.append(tempTaskView.render().$el);
 	    }
-	    // ,
-	    // addTask(model){
-	    //   debugger
-	    // }
-
 	});
 
 	var TaskList = {
 	    init: function init() {
 	        var tempData = _gv2.default.list;
-	        new TaskTopView();
+
+	        // task主容器DOM
+	        var taskListContent = new TaskTopView();
+
+	        // 生成任务列表
 	        var todoTaskCollection = new TaskCollection(tempData);
 	        var todoTadkCollectionView = new TaskCollectionView({
 	            collection: todoTaskCollection
 	        });
-	        $('#main').append(todoTadkCollectionView.$el);
+
+	        // 把任务列表加入到task主容器中
+	        taskListContent.$el.append(todoTadkCollectionView.$el);
+
+	        // 把task主容器一次放入页面中
+	        taskListContent.$el.appendTo('#todoapp');
+
+	        // 任务列表集合存入全局变量，方便其它模块添加task
 	        _gv2.default.todoTaskCollection = todoTaskCollection;
 	    }
 	};
@@ -325,7 +374,7 @@ webpackJsonp([0,1],[
 	exports.default = TaskList;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -354,13 +403,11 @@ webpackJsonp([0,1],[
 	 * 页脚筛选操作模块
 	 */
 	var CountModel = Backbone.Model.extend({
-	    defaults: {
-	        type: 'count',
-	        total: 0
-	    }
+	    // defaults: {
+	    //     type: 'count',
+	    //     total: 0
+	    // }
 	});
-
-	var countObj = new CountModel();
 
 	// 筛选
 	var filterList = {
@@ -377,13 +424,6 @@ webpackJsonp([0,1],[
 	    }]
 	};
 
-	// 清除已完成
-	var clearObj = {
-	    type: 'clear',
-	    total: 0,
-	    txt: 'Clear completed'
-	};
-
 	/**
 	 * 总计View对象
 	 */
@@ -397,6 +437,8 @@ webpackJsonp([0,1],[
 	    },
 	    initialize: function initialize() {
 	        this.render();
+
+	        // 监听task任务数量变化
 	        this.listenTo(this.model, 'change', this.countChange);
 	    },
 	    render: function render() {
@@ -407,11 +449,11 @@ webpackJsonp([0,1],[
 
 
 	    /**
-	     * 修改份数
-	     * 
+	     * 修改页面task份数
 	     */
 	    countChange: function countChange() {
-	        $('#todo-count').html(this._tpl(_gv2.default.list.length));
+	        var json = this.model.toJSON();
+	        $('#todo-count').html(this._tpl(json.total));
 	    }
 	});
 
@@ -497,80 +539,66 @@ webpackJsonp([0,1],[
 	});
 
 	/**
-	 * 获取完成的task
+	 * 把task进行归类, 返回已完成任务和未完成的任务
 	 * @param  {Array} data  所有任务
-	 * @return {Array}      
+	 * @return {Object}         
 	 */
-	var getFinishTask = function getFinishTask(data) {
-	    var tempTask = [];
+	var splitTask = function splitTask(data) {
+	    var taskDone = [];
+	    var taskAct = [];
 	    if (data.length) {
 	        data.map(function (item) {
 	            if (item.done) {
-	                tempTask.push(item);
+	                taskDone.push(item);
+	            } else {
+	                taskAct.push(item);
 	            }
 	        });
 	    }
-	    return tempTask;
+	    return {
+	        taskDone: taskDone,
+	        taskAct: taskAct
+	    };
 	};
 
 	var Footer = {
 	    init: function init() {
 
+	        // 所有任务
 	        var list = _gv2.default.list;
-	        var hasDoneTask = getFinishTask(list);
 
-	        // 重新计算任务个数
-	        // countObj.total = list.length
-	        // clearObj.total = hasDoneTask.length
+	        // 任务分类
 
-	        var footerCollection = new FooterCollection([CountModel, filterList, clearObj]);
+	        var _splitTask = splitTask(list);
+
+	        var taskDone = _splitTask.taskDone;
+	        var taskAct = _splitTask.taskAct;
+
+	        // 任务总数Model
+
+	        var countObj = new CountModel({
+	            type: 'count',
+	            total: taskAct.length
+	        });
+
+	        // 已完成按钮
+	        var clearObj = {
+	            type: 'clear',
+	            total: taskDone.length,
+	            txt: 'Clear completed'
+	        };
+
+	        var footerCollection = new FooterCollection([countObj, filterList, clearObj]);
 
 	        new FooterCollectionView({
 	            collection: footerCollection
 	        });
+
+	        _gv2.default.countObj = countObj;
 	    }
 	};
 
 	exports.default = Footer;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	/**
-	 * 项目用到的所有ajax请求
-	 * 
-	 */
-
-	/**
-	 * 获取全部任务数据
-	 */
-	var FETCH_LIST = exports.FETCH_LIST = function FETCH_LIST(data) {
-	    var setting = {
-	        url: '/getAllTask',
-	        type: 'post',
-	        dataType: 'json'
-	    };
-	    return Promise.resolve($.ajax(setting));
-	};
-
-	/**
-	 * 添加 删除 更新 清除任务
-	 * @param  {Object} data 
-	 * @return {PromseObject}
-	 */
-	var TASK_UPDATA = exports.TASK_UPDATA = function TASK_UPDATA(data) {
-	    var setting = {
-	        url: '/updata',
-	        type: 'post',
-	        dataType: 'json',
-	        data: data
-	    };
-	    return Promise.resolve($.ajax(setting));
-	};
 
 /***/ }
 ]);

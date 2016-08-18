@@ -16,13 +16,11 @@ const FooterCollection = Backbone.Collection.extend()
 // 总计
 
 const CountModel = Backbone.Model.extend({
-    defaults: {
-        type: 'count',
-        total: 0
-    }
+    // defaults: {
+    //     type: 'count',
+    //     total: 0
+    // }
 })
-
-const countObj = new CountModel()
 
 // 筛选
 const filterList = {
@@ -39,13 +37,6 @@ const filterList = {
     }]
 }
 
-// 清除已完成
-const clearObj = {
-    type: 'clear',
-    total: 0,
-    txt: 'Clear completed'
-}
-
 /**
  * 总计View对象
  */
@@ -59,6 +50,8 @@ const LeftView = Backbone.View.extend({
     },
     initialize(){
         this.render()
+
+        // 监听task任务数量变化
         this.listenTo(this.model, 'change', this.countChange)
     },
     render(){
@@ -68,11 +61,11 @@ const LeftView = Backbone.View.extend({
     },
 
     /**
-     * 修改份数
-     * 
+     * 修改页面task份数
      */
     countChange(){
-        $('#todo-count').html(this._tpl(GV.list.length))
+        let json = this.model.toJSON()
+        $('#todo-count').html(this._tpl(json.total))
     }
 })
 
@@ -158,37 +151,60 @@ const FooterCollectionView = Backbone.View.extend({
 })
 
 /**
- * 获取完成的task
+ * 把task进行归类, 返回已完成任务和未完成的任务
  * @param  {Array} data  所有任务
- * @return {Array}      
+ * @return {Object}         
  */
-let getFinishTask = data => {
-    let tempTask = []
+let splitTask = data => {
+    let taskDone = []
+    let taskAct = []
     if(data.length){
         data.map( item => {
             if (item.done) {
-                tempTask.push(item)
+                taskDone.push(item)
+            } else {
+                taskAct.push(item)
             }
         })
     }
-    return tempTask
+    return {
+        taskDone,
+        taskAct
+    }
 }
 
 const Footer = {
     init(){
 
+        // 所有任务
         let list = GV.list
-        let hasDoneTask = getFinishTask(list)
 
-        // 重新计算任务个数
-        // countObj.total = list.length
-        // clearObj.total = hasDoneTask.length
+        // 任务分类
+        let {
+            taskDone,
+            taskAct
+        } = splitTask(list)
 
-        const footerCollection = new FooterCollection([CountModel, filterList, clearObj])
+        // 任务总数Model
+        const countObj = new CountModel({
+            type: 'count',
+            total: taskAct.length
+        })
+
+        // 已完成按钮
+        const clearObj = {
+            type: 'clear',
+            total: taskDone.length,
+            txt: 'Clear completed'
+        }
+
+        const footerCollection = new FooterCollection([countObj, filterList, clearObj])
 
         new FooterCollectionView({
             collection: footerCollection
         })
+
+        GV.countObj = countObj
     }
 }
 
