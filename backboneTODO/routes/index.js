@@ -18,7 +18,8 @@ router.post('/getAllTask', function(req, res, next) {
 router.post('/updata', function(req, res, next) {
   let {
     type,
-    desc
+    desc,
+    id
   } = req.body
 
   if(type === 'add' ){
@@ -34,6 +35,11 @@ router.post('/updata', function(req, res, next) {
     // 标记完成
   } else if( type === 'clear' ){
     // 清除完成的数据
+  } else if( type === 'remove'){
+    let removeState = taskControl.remove(id)
+    res.send({
+      success: removeState
+    })
   }
 });
 module.exports = router;

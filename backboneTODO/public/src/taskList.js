@@ -3,6 +3,8 @@
  */
 import GV from './gv'
 
+import { TASK_UPDATA } from './fetch'
+
 /**
  * 选择所有按钮
  */
@@ -29,25 +31,48 @@ const TaskView = Backbone.View.extend({
     tagName: 'li',
     className: '',
     initialize(){
-      this.render()
+        this.render()
+    },
+    events: {
+        'click .destroy': 'taskRemove',
+        'click input[type="checkbox"]': 'taskDone',
+        'dblclick label': 'taskModify'
     },
     render(){
         let {
           desc,
+          id,
           done
         } = this.model.toJSON()
 
         let hasCheck = done ? 'checked' : ''
         let hasCheckClass = done ? 'class="completed"' : ''
 
-        this.$el.html(`<li ${hasCheckClass}>
+        this.$el.html(`<li ${hasCheckClass} data-id="${id}">
           <div class="view">
             <input class="toggle" type="checkbox" ${hasCheck}>
             <label>${desc}</label>
             <button class="destroy"></button>
           </div>
-          <input class="edit" value="todo 1"></li>`)
+          <input class="edit" value="${desc}"></li>`)
         return this
+    },
+    taskRemove(e){
+        let id = $(e.target).closest('li').data('id') - 0
+        TASK_UPDATA({
+            id,
+            type: 'remove',
+            })
+            .catch()
+            .then( data => {
+                
+            })
+    },
+    taskDone(e){
+        console.log('taskDone')
+    },
+    taskModify(e){
+        console.log('taskModify')
     }
 })
 

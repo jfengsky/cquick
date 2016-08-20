@@ -1,4 +1,4 @@
-/*!  2016-08-18 13:45  */
+/*!  2016-08-20 12:33  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -37,19 +37,19 @@ webpackJsonp([0,1],[
 
 	// 头部模块
 	$(document).ready(function () {
-	    // 从服务器获取task数据
-	    (0, _fetch.FETCH_LIST)().catch().then(function (data) {
-	        _gv2.default.list = data;
+	        // 从服务器获取task数据
+	        (0, _fetch.FETCH_LIST)().catch().then(function (data) {
+	                _gv2.default.list = data;
 
-	        // 初始头部区块
-	        _header2.default.init();
+	                // 初始头部区块
+	                _header2.default.init();
 
-	        // 初始化列表区块
-	        _taskList2.default.init();
+	                // 初始化列表区块
+	                _taskList2.default.init();
 
-	        // 初始化页脚区块
-	        _footer2.default.init();
-	    });
+	                // 初始化页脚区块
+	                _footer2.default.init();
+	        });
 	});
 
 	// 任务列表区模块
@@ -248,10 +248,15 @@ webpackJsonp([0,1],[
 
 	var _gv2 = _interopRequireDefault(_gv);
 
+	var _fetch = __webpack_require__(4);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * 选择所有按钮
+	 */
+	/**
+	 * 任务list区块
 	 */
 	var TaskTopView = Backbone.View.extend({
 	    tagName: 'section',
@@ -271,27 +276,44 @@ webpackJsonp([0,1],[
 	 * 创建任务列表视图对象
 	 * @type {[type]}
 	 */
-	/**
-	 * 任务list区块
-	 */
 	var TaskView = Backbone.View.extend({
 	    tagName: 'li',
 	    className: '',
 	    initialize: function initialize() {
 	        this.render();
 	    },
+
+	    events: {
+	        'click .destroy': 'taskRemove',
+	        'click input[type="checkbox"]': 'taskDone',
+	        'dblclick label': 'taskModify'
+	    },
 	    render: function render() {
 	        var _model$toJSON = this.model.toJSON();
 
 	        var desc = _model$toJSON.desc;
+	        var id = _model$toJSON.id;
 	        var done = _model$toJSON.done;
 
 
 	        var hasCheck = done ? 'checked' : '';
 	        var hasCheckClass = done ? 'class="completed"' : '';
 
-	        this.$el.html('<li ' + hasCheckClass + '>\n          <div class="view">\n            <input class="toggle" type="checkbox" ' + hasCheck + '>\n            <label>' + desc + '</label>\n            <button class="destroy"></button>\n          </div>\n          <input class="edit" value="todo 1"></li>');
+	        this.$el.html('<li ' + hasCheckClass + ' data-id="' + id + '">\n          <div class="view">\n            <input class="toggle" type="checkbox" ' + hasCheck + '>\n            <label>' + desc + '</label>\n            <button class="destroy"></button>\n          </div>\n          <input class="edit" value="' + desc + '"></li>');
 	        return this;
+	    },
+	    taskRemove: function taskRemove(e) {
+	        var id = $(e.target).closest('li').data('id') - 0;
+	        (0, _fetch.TASK_UPDATA)({
+	            id: id,
+	            type: 'remove'
+	        }).catch().then(function (data) {});
+	    },
+	    taskDone: function taskDone(e) {
+	        console.log('taskDone');
+	    },
+	    taskModify: function taskModify(e) {
+	        console.log('taskModify');
 	    }
 	});
 

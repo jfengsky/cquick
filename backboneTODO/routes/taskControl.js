@@ -27,6 +27,25 @@ let taskControl = {
     // 清除完成的
     clear(){
 
+    },
+
+    /**
+     * 删除任务
+     * @param id
+     */
+    remove(id){
+        let removeIndex = null;
+        this.list.every( (item, index) => {
+            if(id == item.id){
+                removeIndex = index
+            }
+        })
+        if( removeIndex !== null ){
+            this.list.splice(removeIndex, 1)
+            return true
+        } else {
+            return false
+        }
     }
 }
 
