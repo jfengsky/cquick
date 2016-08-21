@@ -42,9 +42,10 @@ const filterList = {
  */
 const LeftView = Backbone.View.extend({
     tagName: 'span',
-    attributes: {
-        id: 'todo-count'
-    },
+    // attributes: {
+        
+    // },
+    id: 'todo-count',
     _tpl(total){
         return `<strong>${total}</strong> items left`
     },
@@ -75,9 +76,10 @@ const LeftView = Backbone.View.extend({
  */
 const filterListView = Backbone.View.extend({
     tagName: 'ul',
-    attributes: {
-        id: 'filters'
-    },
+    // attributes: {
+    //     id: 'filters'
+    // },
+    id: 'filters',
     initialize(){
         this.render()
     },
@@ -95,9 +97,10 @@ const filterListView = Backbone.View.extend({
  */
 const clearCompleteView = Backbone.View.extend({
     tagName: 'button',
-    attributes: {
-        id: 'clear-completed'
-    },
+    // attributes: {
+        
+    // },
+    id: 'clear-completed',
     initialize(){
         this.render()
     },
@@ -113,9 +116,10 @@ const clearCompleteView = Backbone.View.extend({
  */
 const FooterCollectionView = Backbone.View.extend({
     tagName: 'footer',
-    attributes: {
-        id: 'footer'
-    },
+    // attributes: {
+        
+    // },
+    id: 'footer',
     initialize(){
         this.render()
     },

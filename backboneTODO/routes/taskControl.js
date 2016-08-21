@@ -35,8 +35,8 @@ let taskControl = {
      */
     remove(id){
         let removeIndex = null;
-        this.list.every( (item, index) => {
-            if(id == item.id){
+        this.list.map( (item, index) => {
+            if(id === item.id){
                 removeIndex = index
             }
         })

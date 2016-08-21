@@ -21,7 +21,7 @@ router.post('/updata', function(req, res, next) {
     desc,
     id
   } = req.body
-
+  id = parseInt(id)
   if(type === 'add' ){
     // 添加数据
 

@@ -10,9 +10,10 @@ import { TASK_UPDATA } from './fetch'
  */
 const TaskTopView = Backbone.View.extend({
     tagName: 'section',
-    attributes: {
-        id: 'main'
-    },
+    // attributes: {
+        
+    // },
+    id: 'main',
     initialize(){
         this.render()
     },
@@ -48,7 +49,7 @@ const TaskView = Backbone.View.extend({
         let hasCheck = done ? 'checked' : ''
         let hasCheckClass = done ? 'class="completed"' : ''
 
-        this.$el.html(`<li ${hasCheckClass} data-id="${id}">
+        this.$el.html(`<li ${hasCheckClass}>
           <div class="view">
             <input class="toggle" type="checkbox" ${hasCheck}>
             <label>${desc}</label>
@@ -57,15 +58,39 @@ const TaskView = Backbone.View.extend({
           <input class="edit" value="${desc}"></li>`)
         return this
     },
+    reRend(){
+        GV.todoTaskCollection.reset()
+    },
     taskRemove(e){
-        let id = $(e.target).closest('li').data('id') - 0
+        let self = this
+        let model = this.model
+        let {
+            id
+        } = model.toJSON()
+        let {
+            collection
+        } = model
         TASK_UPDATA({
             id,
             type: 'remove',
             })
             .catch()
             .then( data => {
-                
+                if(data.success){
+                    
+                    // 删除model
+                    let removeIndex = null
+                    GV.list.map( (item, index) => {
+                        if(id === item.id){
+                            removeIndex = index
+                        }
+                    })
+                    if( removeIndex !== null ){
+                        GV.list.splice(removeIndex, 1)
+                    }
+
+                    self.reRender()
+                }
             })
     },
     taskDone(e){
@@ -104,9 +129,10 @@ const TaskCollection = Backbone.Collection.extend({
  */
 const TaskCollectionView = Backbone.View.extend({
     tagName: 'ul',
-    attributes: {
-        id: 'todo-list'
-    },
+    // attributes: {
+        
+    // },
+    id: 'todo-list',
     initialize(){
         this.render()
     },

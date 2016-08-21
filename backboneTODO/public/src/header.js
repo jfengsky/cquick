@@ -33,9 +33,10 @@ const headerMod = new HeaderModel()
  */
 const HeaderView = Backbone.View.extend({
     tagName: 'header',
-    attributes: {
-        id: 'header'
-    },
+    // attributes: {
+        
+    // },
+    id: 'header',
     initialize(){
 
         // 渲染header

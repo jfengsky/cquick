@@ -1,4 +1,4 @@
-/*!  2016-08-20 12:33  */
+/*!  2016-08-21 15:01  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -125,9 +125,10 @@ webpackJsonp([0,1],[
 	 */
 	var HeaderView = Backbone.View.extend({
 	    tagName: 'header',
-	    attributes: {
-	        id: 'header'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'header',
 	    initialize: function initialize() {
 
 	        // 渲染header
@@ -260,9 +261,10 @@ webpackJsonp([0,1],[
 	 */
 	var TaskTopView = Backbone.View.extend({
 	    tagName: 'section',
-	    attributes: {
-	        id: 'main'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'main',
 	    initialize: function initialize() {
 	        this.render();
 	    },
@@ -299,15 +301,41 @@ webpackJsonp([0,1],[
 	        var hasCheck = done ? 'checked' : '';
 	        var hasCheckClass = done ? 'class="completed"' : '';
 
-	        this.$el.html('<li ' + hasCheckClass + ' data-id="' + id + '">\n          <div class="view">\n            <input class="toggle" type="checkbox" ' + hasCheck + '>\n            <label>' + desc + '</label>\n            <button class="destroy"></button>\n          </div>\n          <input class="edit" value="' + desc + '"></li>');
+	        this.$el.html('<li ' + hasCheckClass + '>\n          <div class="view">\n            <input class="toggle" type="checkbox" ' + hasCheck + '>\n            <label>' + desc + '</label>\n            <button class="destroy"></button>\n          </div>\n          <input class="edit" value="' + desc + '"></li>');
 	        return this;
 	    },
+	    reRend: function reRend() {
+	        _gv2.default.todoTaskCollection.reset();
+	    },
 	    taskRemove: function taskRemove(e) {
-	        var id = $(e.target).closest('li').data('id') - 0;
+	        var self = this;
+	        var model = this.model;
+
+	        var _model$toJSON2 = model.toJSON();
+
+	        var id = _model$toJSON2.id;
+	        var collection = model.collection;
+
 	        (0, _fetch.TASK_UPDATA)({
 	            id: id,
 	            type: 'remove'
-	        }).catch().then(function (data) {});
+	        }).catch().then(function (data) {
+	            if (data.success) {
+
+	                // 删除model
+	                var removeIndex = null;
+	                _gv2.default.list.map(function (item, index) {
+	                    if (id === item.id) {
+	                        removeIndex = index;
+	                    }
+	                });
+	                if (removeIndex !== null) {
+	                    _gv2.default.list.splice(removeIndex, 1);
+	                }
+
+	                self.reRender();
+	            }
+	        });
 	    },
 	    taskDone: function taskDone(e) {
 	        console.log('taskDone');
@@ -344,9 +372,10 @@ webpackJsonp([0,1],[
 	 */
 	var TaskCollectionView = Backbone.View.extend({
 	    tagName: 'ul',
-	    attributes: {
-	        id: 'todo-list'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'todo-list',
 	    initialize: function initialize() {
 	        this.render();
 	    },
@@ -451,9 +480,10 @@ webpackJsonp([0,1],[
 	 */
 	var LeftView = Backbone.View.extend({
 	    tagName: 'span',
-	    attributes: {
-	        id: 'todo-count'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'todo-count',
 	    _tpl: function _tpl(total) {
 	        return '<strong>' + total + '</strong> items left';
 	    },
@@ -484,9 +514,10 @@ webpackJsonp([0,1],[
 	 */
 	var filterListView = Backbone.View.extend({
 	    tagName: 'ul',
-	    attributes: {
-	        id: 'filters'
-	    },
+	    // attributes: {
+	    //     id: 'filters'
+	    // },
+	    id: 'filters',
 	    initialize: function initialize() {
 	        this.render();
 	    },
@@ -504,9 +535,10 @@ webpackJsonp([0,1],[
 	 */
 	var clearCompleteView = Backbone.View.extend({
 	    tagName: 'button',
-	    attributes: {
-	        id: 'clear-completed'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'clear-completed',
 	    initialize: function initialize() {
 	        this.render();
 	    },
@@ -522,9 +554,10 @@ webpackJsonp([0,1],[
 	 */
 	var FooterCollectionView = Backbone.View.extend({
 	    tagName: 'footer',
-	    attributes: {
-	        id: 'footer'
-	    },
+	    // attributes: {
+
+	    // },
+	    id: 'footer',
 	    initialize: function initialize() {
 	        this.render();
 	    },
