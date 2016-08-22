@@ -39,27 +39,27 @@ const TaskView = Backbone.View.extend({
         'click input[type="checkbox"]': 'taskDone',
         'dblclick label': 'taskModify'
     },
+    _templete(hasCheck,desc){
+        return `<div class="view">
+                    <input class="toggle" type="checkbox" ${hasCheck}>
+                    <label>${desc}</label>
+                    <button class="destroy"></button>
+                </div>
+                <input class="edit" value="${desc}">`
+    },
     render(){
         let {
           desc,
-          id,
+        //   id,
           done
         } = this.model.toJSON()
 
         let hasCheck = done ? 'checked' : ''
-        let hasCheckClass = done ? 'class="completed"' : ''
-
-        this.$el.html(`<li ${hasCheckClass}>
-          <div class="view">
-            <input class="toggle" type="checkbox" ${hasCheck}>
-            <label>${desc}</label>
-            <button class="destroy"></button>
-          </div>
-          <input class="edit" value="${desc}"></li>`)
+        if(done){
+            this.$el.addClass('completed')
+        }
+        this.$el.html(this._templete(hasCheck,desc))
         return this
-    },
-    reRend(){
-        GV.todoTaskCollection.reset()
     },
     taskRemove(e){
         let self = this
@@ -89,9 +89,13 @@ const TaskView = Backbone.View.extend({
                         GV.list.splice(removeIndex, 1)
                     }
 
-                    self.reRender()
+                    self.removeItem()
                 }
             })
+    },
+    removeItem(){
+        GV.todoTaskCollection = new TaskCollection(GV.list)
+        this.$el.remove()
     },
     taskDone(e){
         console.log('taskDone')

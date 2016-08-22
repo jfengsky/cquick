@@ -1,4 +1,4 @@
-/*!  2016-08-21 15:01  */
+/*!  2016-08-23 07:10  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -290,22 +290,22 @@ webpackJsonp([0,1],[
 	        'click input[type="checkbox"]': 'taskDone',
 	        'dblclick label': 'taskModify'
 	    },
+	    _templete: function _templete(hasCheck, desc) {
+	        return '<div class="view">\n                    <input class="toggle" type="checkbox" ' + hasCheck + '>\n                    <label>' + desc + '</label>\n                    <button class="destroy"></button>\n                </div>\n                <input class="edit" value="' + desc + '">';
+	    },
 	    render: function render() {
 	        var _model$toJSON = this.model.toJSON();
 
 	        var desc = _model$toJSON.desc;
-	        var id = _model$toJSON.id;
 	        var done = _model$toJSON.done;
 
 
 	        var hasCheck = done ? 'checked' : '';
-	        var hasCheckClass = done ? 'class="completed"' : '';
-
-	        this.$el.html('<li ' + hasCheckClass + '>\n          <div class="view">\n            <input class="toggle" type="checkbox" ' + hasCheck + '>\n            <label>' + desc + '</label>\n            <button class="destroy"></button>\n          </div>\n          <input class="edit" value="' + desc + '"></li>');
+	        if (done) {
+	            this.$el.addClass('completed');
+	        }
+	        this.$el.html(this._templete(hasCheck, desc));
 	        return this;
-	    },
-	    reRend: function reRend() {
-	        _gv2.default.todoTaskCollection.reset();
 	    },
 	    taskRemove: function taskRemove(e) {
 	        var self = this;
@@ -333,9 +333,13 @@ webpackJsonp([0,1],[
 	                    _gv2.default.list.splice(removeIndex, 1);
 	                }
 
-	                self.reRender();
+	                self.removeItem();
 	            }
 	        });
+	    },
+	    removeItem: function removeItem() {
+	        _gv2.default.todoTaskCollection = new TaskCollection(_gv2.default.list);
+	        this.$el.remove();
 	    },
 	    taskDone: function taskDone(e) {
 	        console.log('taskDone');
