@@ -4,7 +4,13 @@ let taskControl = {
     id: -1,
 
     // 所有任务
-    list: [],
+    list: [{
+        title: 'aaaaa',
+        done: false
+    },{
+        title: 'bbbbb',
+        done: false
+    }],
 
     /**
      * 添加任务

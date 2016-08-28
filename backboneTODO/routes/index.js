@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/getAllTask', function(req, res, next) {
+router.get('/getAllTask', function(req, res, next) {
   setTimeout(() => {
     res.send(taskControl.list);
   }, 2000)

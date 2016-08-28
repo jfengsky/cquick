@@ -1,4 +1,4 @@
-/*!  2016-08-26 15:03  */
+/*!  2016-08-28 20:11  */
 webpackJsonp([0,1],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -26,18 +26,22 @@ webpackJsonp([0,1],[
 
 	var _HeaderView2 = _interopRequireDefault(_HeaderView);
 
+	var _TaskView = __webpack_require__(6);
+
+	var _TaskView2 = _interopRequireDefault(_TaskView);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 *
-	 */
-
-	$.ready(function () {
-
+	$(function () {
 	  _HeaderView2.default.init();
 
-	  (0, _request.GET_LIST)().catch().then(function (data) {});
-	});
+	  (0, _request.GET_LIST)().catch().then(function (data) {
+
+	    new _TaskView2.default();
+	  });
+	}); /**
+	     *
+	     */
 
 /***/ },
 /* 2 */
@@ -114,7 +118,7 @@ webpackJsonp([0,1],[
 	var headTpl = '<h1>todos</h1><input id="new-todo" placeholder="What needs to be done?" autofocus="">';
 
 	var Header = Backbone.View.extend({
-	  el: 'header',
+	  tagName: 'header',
 	  id: 'header',
 	  events: {
 	    'keypress #new-todo': 'reateTask'
@@ -124,7 +128,10 @@ webpackJsonp([0,1],[
 	  },
 	  render: function render() {
 	    this.$el.html(headTpl);
-	    return this;
+	    $('#todoapp').append(this.$el);
+	  },
+	  reateTask: function reateTask() {
+	    debugger;
 	  }
 	});
 
@@ -134,6 +141,40 @@ webpackJsonp([0,1],[
 	  }
 	};
 	exports.default = HeaderView;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	/**
+	 *
+	 * Created 16/8/28.
+	 */
+
+	var taskTpl = '<input id="toggle-all" type="checkbox"><label for="toggle-all">Mark all as complete</label>';
+
+	var TaskView = Backbone.View.extend({
+	  tagName: 'section',
+	  id: 'main',
+	  events: {
+	    'click #toggle-all': 'toggleAll'
+	  },
+	  initialize: function initialize() {
+	    this.render();
+	  },
+	  render: function render() {
+	    this.$el.html(taskTpl);
+	    $('#todoapp').append(this.$el);
+	  },
+	  toggleAll: function toggleAll() {
+	    debugger;
+	  }
+	});
+
+	exports.default = TaskView;
 
 /***/ }
 ]);
