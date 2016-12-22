@@ -30,3 +30,22 @@ describe('array', () => {
     })
   })
 })
+
+
+# 脚本名称 (Name) : 三傻鸟
+# 作者名称 (Author) : 巧克力饼干-萨尔
+# 脚本选择器 (Selector) : 基础
+# 脚本备注 (Notes) : 
+# 脚本 (Script) : #
+# MzcwMDQ1OTA0MV4xXlReU2RiXlReU2F1
+# dGhvcl5T5ben5YWL5Yqb6aW85bmyLeiQ
+# qOWwlF5TbmFtZV5T5LiJ5YK76bifXlNj
+# b2RlXlNxdWl0fmBbfmAhc2VsZijoioLn
+# grnpm4/pvpkpLmFjdGl2ZX5gJn5gcm91
+# bmQ9MX5gXX5gfkpjaGFuZ2UobmV4dCl+
+# YFtzZWxmLmRlYWRdfmB+SmFiaWxpdHko
+# IzMpfmB+SmFiaWxpdHkoIzIpfmB+SmFi
+# aWxpdHkoIzEpfmB+SnN0YW5kYnledF5T
+# a2V5XlMxMTY1OzMyMDsxMjM4OjE0OTY7
+# MTQ5NzsxNDk4XlNwbHVnaW5eU0Jhc2Ve
+# dF5e=
