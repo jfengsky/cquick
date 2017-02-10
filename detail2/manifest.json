@@ -1,0 +1,36 @@
+{
+  "name": "vendor_7d066a3d2a961e9ed716",
+  "content": {}
+}  "./node_modules/jquery/dist/jquery.js": {
+      "id": 0,
+      "meta": {}
+    },
+    "./node_modules/underscore/underscore.js": {
+      "id": 1,
+      "meta": {}
+    },
+    "./src/app.js": {
+      "id": 2,
+      "meta": {
+        "harmonyModule": true
+      }
+    },
+    "./src/add.js": {
+      "id": 3,
+      "meta": {
+        "harmonyModule": true
+      },
+      "exports": [
+        "default"
+      ]
+    },
+    "./node_modules/backbone/backbone.js": {
+      "id": 4,
+      "meta": {}
+    },
+    "./node_modules/webpack/buildin/global.js": {
+      "id": 5,
+      "meta": {}
+    }
+  }
+}
