@@ -1,6 +1,13 @@
-const webpack = require('webpack')
+import webpack from 'webpack'
+import path from 'path'
 
-module.exports = {
+// const appPath = '/ResVacationOnline/js/vacation/app/detail_v2/'
+const appPath = './'
+
+const srcPath = path.join(__dirname, './src' + appPath)
+const destPaht = path.join(__dirname, './dist' + appPath)
+
+const webpackConfig = {
     entry: {
         bundle: [
             './src/app.js'
@@ -41,17 +48,19 @@ module.exports = {
             name: ['vendor']
         }),
 
-        // new webpack.optimize.UglifyJsPlugin({
-        //     beautify: false,
-        //     mangle: {
-        //         screw_ie8: true,
-        //         keep_fnames: true
-        //     },
-        //     compress: {
-        //         screw_ie8: true
-        //     },
-        //     comments: false
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            mangle: {
+                screw_ie8: true,
+                keep_fnames: true
+            },
+            compress: {
+                screw_ie8: true
+            },
+            comments: false
+        })
     ],
     // devtool: 'source-map'
 }
+
+export default webpackConfig
