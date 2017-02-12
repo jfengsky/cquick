@@ -1,1 +1,88 @@
-webpackJsonp([0,1],[function(e,t,o){"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var n=function(){function defineProperties(e,t){for(var o=0;o<t.length;o++){var n=t[o];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(e,t,o){return t&&defineProperties(e.prototype,t),o&&defineProperties(e,o),e}}(),r=o(1),i=_interopRequireDefault(r);console.log((0,i.default)(2,3)),console.log(jQuery);var u=function(e){function Note(){return _classCallCheck(this,Note),console.log("Note constructor"),_possibleConstructorReturn(this,(Note.__proto__||Object.getPrototypeOf(Note)).call(this))}return _inherits(Note,e),n(Note,[{key:"initialize",value:function(){console.log("Note init")}},{key:"render",value:function(){console.log("Note render")}}]),Note}(Backbone.Model);new u},function(e,t,o){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var n=function(e,t){return e+t};t.default=n},function(e,t,o){e.exports=o(0)}],[2]);
+webpackJsonp([0],[
+/* 0 */,
+/* 1 */,
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(jQuery, _, Backbone) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _add = __webpack_require__(4);
+
+var _add2 = _interopRequireDefault(_add);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import jQuery from 'jQuery'
+
+console.log((0, _add2.default)(2, 3));
+
+console.log(jQuery);
+
+console.log(_);
+
+console.log(Backbone);
+
+var Note = function (_Backbone$Model) {
+    _inherits(Note, _Backbone$Model);
+
+    function Note() {
+        _classCallCheck(this, Note);
+
+        console.log('Note constructor');
+        return _possibleConstructorReturn(this, (Note.__proto__ || Object.getPrototypeOf(Note)).call(this));
+    }
+
+    _createClass(Note, [{
+        key: 'initialize',
+        value: function initialize() {
+            console.log('Note init');
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            console.log('Note render');
+        }
+    }]);
+
+    return Note;
+}(Backbone.Model);
+
+new Note();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(1), __webpack_require__(2)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var add = function add(x, y) {
+  return x + y;
+};
+
+exports.default = add;
+
+/***/ }),
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(3);
+
+
+/***/ })
+],[6]);
