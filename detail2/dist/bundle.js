@@ -8,11 +8,11 @@ webpackJsonp([0],[
 "use strict";
 
 
-var _model = __webpack_require__(8);
+var _model = __webpack_require__(4);
 
 var _model2 = _interopRequireDefault(_model);
 
-var _view = __webpack_require__(9);
+var _view = __webpack_require__(5);
 
 var _view2 = _interopRequireDefault(_view);
 
@@ -65,17 +65,7 @@ new _view2.default({
 });
 
 /***/ }),
-/* 4 */,
-/* 5 */,
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(3);
-
-
-/***/ }),
-/* 7 */,
-/* 8 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -148,14 +138,14 @@ var Man = function (_Backbone$Model) {
 }(Backbone.Model);
 
 exports.default = Man;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 9 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
+/* WEBPACK VAR INJECTION */(function(Backbone, _, $) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -172,28 +162,97 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var searchView = function (_Backbone$View) {
     _inherits(searchView, _Backbone$View);
 
-    function searchView(aa) {
+    function searchView(options) {
         _classCallCheck(this, searchView);
 
-        var _this = _possibleConstructorReturn(this, (searchView.__proto__ || Object.getPrototypeOf(searchView)).call(this, aa));
-
-        debugger;
-        return _this;
+        _.defaults(options, {
+            // tagName: 'div',
+            // className: 'document-row',
+            el: $('#root'),
+            events: {
+                'click #demo': 'tips'
+            }
+        });
+        return _possibleConstructorReturn(this, (searchView.__proto__ || Object.getPrototypeOf(searchView)).call(this, options));
     }
 
     _createClass(searchView, [{
         key: 'initialize',
         value: function initialize() {
-            this;
-            console.log('view');
+            this.render();
+            // console.log('view')
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            this.$el.html('<input type="button" id="demo" value="click me">');
+        }
+    }, {
+        key: 'tips',
+        value: function tips() {
+            alert('tips');
         }
     }]);
 
     return searchView;
 }(Backbone.View);
 
+// export default class searchView extends Backbone.View {
+//     constructor(aa){
+//         super(aa)
+//         this.$el = $('#root')
+//         // this.tagName = 'div'
+//         this.events = {
+//             'click #demo' : 'tips'
+//         }
+//     }
+//     initialize(){
+//         this.render()
+//         // console.log('view')
+//     }
+//     render(){
+//         this.$el.html(`<input type="button" id="demo" value="click me">`)
+//     }
+//     tips(){
+//         alert('tips')
+//     }
+// }
+
+// export default class searchView extends Backbone.View {
+//     constructor(aa){
+//         super(aa)
+//     }
+//     $el(){
+//         return $('#root')
+//     }
+//     events(){
+//         return {
+//             'click #demo' : 'tips'
+//         }
+//     }
+//     initialize(){
+//         this.render()
+//         // console.log('view')
+//     }
+//     render(){
+//         this.$el.html(`<input type="button" id="demo" value="click me">`)
+//     }
+//     tips(){
+//         alert('tips')
+//     }
+// }
+
+
 exports.default = searchView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))
+
+/***/ }),
+/* 6 */,
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(3);
+
 
 /***/ })
-],[6]);
+],[7]);
