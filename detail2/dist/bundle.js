@@ -179,69 +179,23 @@ var searchView = function (_Backbone$View) {
     _createClass(searchView, [{
         key: 'initialize',
         value: function initialize() {
-            this.render();
+            // this.render()
             // console.log('view')
         }
     }, {
         key: 'render',
         value: function render() {
-            this.$el.html('<input type="button" id="demo" value="click me">');
+            // this.$el.html(`<input type="button" id="demo" value="click me">`)
         }
     }, {
         key: 'tips',
         value: function tips() {
-            alert('tips');
+            alert('tips2');
         }
     }]);
 
     return searchView;
 }(Backbone.View);
-
-// export default class searchView extends Backbone.View {
-//     constructor(aa){
-//         super(aa)
-//         this.$el = $('#root')
-//         // this.tagName = 'div'
-//         this.events = {
-//             'click #demo' : 'tips'
-//         }
-//     }
-//     initialize(){
-//         this.render()
-//         // console.log('view')
-//     }
-//     render(){
-//         this.$el.html(`<input type="button" id="demo" value="click me">`)
-//     }
-//     tips(){
-//         alert('tips')
-//     }
-// }
-
-// export default class searchView extends Backbone.View {
-//     constructor(aa){
-//         super(aa)
-//     }
-//     $el(){
-//         return $('#root')
-//     }
-//     events(){
-//         return {
-//             'click #demo' : 'tips'
-//         }
-//     }
-//     initialize(){
-//         this.render()
-//         // console.log('view')
-//     }
-//     render(){
-//         this.$el.html(`<input type="button" id="demo" value="click me">`)
-//     }
-//     tips(){
-//         alert('tips')
-//     }
-// }
-
 
 exports.default = searchView;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)))

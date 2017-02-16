@@ -11,13 +11,13 @@ export default class searchView extends Backbone.View {
         super(options)
     }
     initialize(){
-        this.render()
+        // this.render()
         // console.log('view')
     }
     render(){
-        this.$el.html(`<input type="button" id="demo" value="click me">`)
+        // this.$el.html(`<input type="button" id="demo" value="click me">`)
     }
     tips(){
-        alert('tips')
+        alert('tips2')
     }
 }
