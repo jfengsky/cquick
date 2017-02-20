@@ -52,6 +52,11 @@
         }
     }
 
+    let attr = (tag, value) => {
+
+    }
+
+
     Absery.extend = Absery.fn.extend
 
     Absery.fn.prototype = Absery.fn.init.prototype = Absery.prototype
@@ -62,3 +67,4 @@
 Absery('#test')
 
 // Absery('<span></span>')
+

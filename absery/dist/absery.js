@@ -55,6 +55,8 @@
         }
     };
 
+    var attr = {};
+
     Absery.extend = Absery.fn.extend;
 
     Absery.fn.prototype = Absery.fn.init.prototype = Absery.prototype;
