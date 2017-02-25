@@ -14,12 +14,6 @@ var router = express.Router();
 
 const data = ['list1', 'list2', 'list3']
 
-var MyComponent = React.createClass({
-  render: function() {
-    return (<h2>itbilu.com</h2>);
-  }
-})
-
 // let TodolistCom = React.createFactory(Todolist)
 
 let html = renderToString.renderToString(<Todolist data={data} />)
