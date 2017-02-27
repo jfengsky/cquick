@@ -2,6 +2,7 @@
 import React from 'react'
 
 export default class Formapp extends React.Component {
+    // mixins: [React.addons.LinkedStateMixin]
 
     constructor(props){
         super(props)
