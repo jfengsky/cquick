@@ -4,7 +4,8 @@ module.exports = {
     entry: {
         bundle: [
             './src/app.js'
-        ]
+        ],
+        d3: './demo/D3/index.js'
     },
 
     output: {
@@ -25,8 +26,8 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor']
-        })
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: ['vendor']
+        // })
     ]
 }
