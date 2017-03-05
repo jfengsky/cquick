@@ -1,92 +1,38 @@
-const event = {}
+const hr = {}
 
-event.listen = function(fn){
-    if(!this.clientList){
-        this.clientList = []
+hr.clientList = []
+
+hr.listen = function(type, fn){
+    if(!this.clientList[type]){
+        this.clientList[type] = []
     }
-
-    this.clientList.push(fn)
+    this.clientList[type].push(fn)
 }
 
-event.trigger = function(){
-    for(let i = 0; i< this.clientList.length; i++){
-        var fn = this.clientList[i]
-        // fn(arguments)
-        fn.apply(this, arguments)
-        this
-    }
-}
-
-event.listen(function(time){
-    console.log('time up:'+ time)
-})
-
-event.trigger('2016/10')
-
-
-
-
-
-// function add(a, b){
-//     console.log(a + b)
-// }
-// function sub(a, b){
-//     console.log(a - b)
-// }
-//
-// add.call(sub,3,1)
-// add.apply(sub,[3,1])
-
-// function fun1() {
-//     this.a = 123
-//     this.add = function(){
-//         console.log('f1 add')
-//         return this.a
-//     }
-// }
-//
-// function fun2(){
-//     this.a = 456
-// }
-//
-// var f1 = new fun1()
-// var f2 = new fun2()
-// console.log(f1.add())
-// console.log(f2.a)
-// console.log(f1.add.call(f2))
-
-
-
-
-
-function fun1(d){
-    this.d = d
-    this.c = 333
-    this.add = function(){
-        return this.a
-    }
-    this.chen = function(){
-        return this.d * 3
+hr.trigger = function(){
+    let type = arguments[0]
+    let fns = this.clientList[type]
+    for(let i = 0; i < fns.length; i++){
+        fns[i].apply(this, arguments)
     }
 }
 
-function fun2(e){
-    this.sub = function(){
-        return this.a - this.b
-    }
-    this.chu = function(){
-        return this.e
-    }
+const zhangsan = function(type, time){
+    console.log(`zhangsan(${type}) : ${time}`)
 }
 
-function fun3(){
-    this.a = 10
-    this.b = 2
-    fun1.call(this, 10)
-    fun2.call(this)
+const lisi = function(type, time){
+    console.log(`lisi(${type}) : ${time}`)
 }
 
-var f3 = new fun3()
+hr.listen('js', zhangsan)
+hr.listen('php', lisi)
 
-console.log(f3.add())
-console.log(f3.sub())
+hr.trigger('js', '2017-03-04')
+hr.trigger('php', '2017-03-05')
+
+// 模块 份数 单价 总价
+
+// listen('totalPrice')
+// listen('singlePrice')
+// trigger({count:3})
