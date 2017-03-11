@@ -6,7 +6,8 @@ module.exports = {
             './src/app.js'
         ],
         d3: './demo/D3/index.js',
-        d4: './demo/D4/index.js'
+        d4: './demo/D4/index.js',
+        d5: './demo/D5/index.js'
     },
 
     output: {
