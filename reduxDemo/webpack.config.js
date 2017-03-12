@@ -3,15 +3,16 @@ const webpack = require('webpack')
 module.exports = {
     entry: {
         bundle: [
-            './src/app.js'
+            './public/src/app.js'
         ],
-        d3: './demo/D3/index.js',
-        d4: './demo/D4/index.js',
-        d5: './demo/D5/index.js'
+        // d3: './demo/D3/index.js',
+        // d4: './demo/D4/index.js',
+        // d5: './demo/D5/index.js',
+        d6: './public/demo/D6/index.js'
     },
 
     output: {
-        path: './dist/',
+        path: './public/dist/',
         filename: '[name].js'
     },
 
