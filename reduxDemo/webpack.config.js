@@ -9,7 +9,9 @@ module.exports = {
         // d4: './demo/D4/index.js',
         // d5: './demo/D5/index.js',
         // d6: './public/demo/D6/index.js',
-        d7: './public/demo/D7/index.js'
+        // d7: './public/demo/D7/index.js',
+        // d8: './public/demo/D8/index.js',
+        d9: './public/demo/D9/index.js'
     },
 
     output: {
