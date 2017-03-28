@@ -8,7 +8,8 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: []
+            list: [],
+            filter: 'all'
         }
     }
     
@@ -16,8 +17,8 @@ export default class App extends Component {
         return (
             <div>
                 <Head addTodo={this.addTodo} />
-                <Main list={this.state.list} toggle={this.toggle} />
-                <Foot />
+                <Main list={this.state.list} toggle={this.toggle} filter={this.state.filter} />
+                <Foot filter={this.filter} />
             </div>
         )
     }
@@ -37,7 +38,6 @@ export default class App extends Component {
 
     toggle = id => {
         let { list } = this.state
-        debugger
         list.map(item =>{
             if( item.index === id ){
                 item.completed = !item.completed
@@ -45,6 +45,12 @@ export default class App extends Component {
         })
         this.setState({
             list
+        })
+    }
+
+    filter = type => {
+        this.setState({
+            filter: type
         })
     }
 }
