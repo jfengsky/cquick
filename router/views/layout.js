@@ -5,7 +5,6 @@ export default props => `
     </head>
     <body>
       <div id="root">${props.content || ''}</div>
-      ${props.bottom || ''}
     </body>
   </html>
 `

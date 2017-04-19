@@ -2,7 +2,7 @@ const webpack = require('webpack')
 
 module.exports = {
     entry: {
-        bundle: './src/App.js'
+        bundle: './src/Root.js'
     },
     output: {
         path: __dirname + '/dist/',

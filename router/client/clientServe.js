@@ -25,4 +25,4 @@ app.get('/', function(req, res, next) {
   res.status(200).send(clientTemplate)
 })
 
-app.listen(3200, () => console.log('start server: http://localhost:3200'))
+app.listen(3300, () => console.log('start server: http://localhost:3300'))
