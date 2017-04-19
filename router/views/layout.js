@@ -4,7 +4,8 @@ export default props => `
       <title>${props.title}</title>
     </head>
     <body>
-      <div id="root">${props.content}</div>
+      <div id="root">${props.content || ''}</div>
+      ${props.bottom || ''}
     </body>
   </html>
 `

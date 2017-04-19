@@ -4,12 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build & npm run server",
-    "build": "webpack --config webpack.config.server.js --watch",
-    "server": "node-dev dist/server.js"
+    "start": "npm run buildServer & npm run server",
+    "startClient": "npm run buildClient & npm run client",
+    "buildServer": "webpack --config webpack.config.server.js --watch",
+    "buildClient": "webpack --watch",
+    "server": "node-dev dist/server.js",
+    "client": "node-dev client/register.js"
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "~4.15.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
@@ -17,11 +23,12 @@
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
-    "express": "^4.15.2",
+    "babel-register": "^6.24.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-node-externals": "^1.5.4"
   }
 }
