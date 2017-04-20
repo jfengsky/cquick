@@ -11094,6 +11094,33 @@ _reactDom2.default.render(_react2.default.createElement(
   _react2.default.createElement(_App2.default, null)
 ), document.getElementById('root'));
 
+/*
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { createStore, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+import reducers from './reducers'
+
+import App from './App'
+
+const reducer = combineReducers({
+  ...reducers
+})
+
+const store = createStore(reducers)
+
+ReactDOM.render((
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>),
+document.getElementById('root'))
+*/
+
 /***/ }),
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
