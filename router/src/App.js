@@ -5,17 +5,8 @@ import {
   Link
 } from 'react-router-dom'
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
+import Home from './component/Home'
+import About from './component/About'
 
 const Topic = ({ match }) => (
   <div>
