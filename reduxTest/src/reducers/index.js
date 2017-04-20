@@ -20,6 +20,7 @@ const initialState = {
 }
 
 export default (state=initialState, action ) => {
+  // console.log('dispatch:', action)
   switch(action.type) {
     case ADD_TODO:
       // 添加任务
