@@ -10971,6 +10971,10 @@ var _App = __webpack_require__(97);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _timeline = __webpack_require__(229);
+
+var _timeline2 = _interopRequireDefault(_timeline);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var logger = function logger(store) {
@@ -10979,6 +10983,9 @@ var logger = function logger(store) {
       console.log('dispatching', action);
       var result = next(action);
       console.log('next state', store.getState());
+      _timeline2.default.change(store.getState(), action);
+      // debugger
+      // store = timeline.timeChange()
       return result;
     };
   };
@@ -11005,6 +11012,7 @@ var crashReporter = function crashReporter(store) {
 
 // 创建全局唯一的store
 var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(logger, crashReporter));
+// timeline.init(store)
 
 // 要用 Provider 包裹起来
 _reactDom2.default.render(_react2.default.createElement(
@@ -25127,6 +25135,149 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(99);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _List = __webpack_require__(230);
+
+var _List2 = _interopRequireDefault(_List);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var container = null; /**
+                       * 实现一个timeline中间件
+                       */
+
+
+var timeline = {
+  data: [],
+  panner: function panner() {
+
+    if (!container) {
+      container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.right = 0;
+      container.style.top = 0;
+      document.body.appendChild(container);
+    }
+    _reactDom2.default.render(_react2.default.createElement(_List2.default, { data: this.data, storeChange: this.timeChange }), container);
+  },
+  change: function change(store, action) {
+    this.data.push({
+      second: new Date().getTime(),
+      store: store,
+      type: action.type
+    });
+    this.panner();
+  },
+  timeChange: function timeChange(second) {
+    if (!second) {
+      // 返回最新的store
+
+      return this.data[this.data.length - 1];
+    }
+  },
+  init: function init(store) {
+    this.data.push({
+      second: new Date().getTime(),
+      store: store.getState(),
+      type: 'INIT'
+    });
+    this.panner();
+  }
+};
+
+exports.default = timeline;
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var List = function (_Component) {
+  _inherits(List, _Component);
+
+  function List() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, List);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.clickHandle = function (second) {
+      _this.props.storeChange(second);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(List, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'ul',
+        null,
+        this.props.data.map(function (_ref2) {
+          var type = _ref2.type,
+              second = _ref2.second;
+
+          return _react2.default.createElement(
+            'li',
+            { key: second, onClick: _this2.clickHandle.bind(_this2, second) },
+            type
+          );
+        })
+      );
+    }
+  }]);
+
+  return List;
+}(_react.Component);
+
+List.propTypes = {};
+
+exports.default = List;
 
 /***/ })
 ],[103]);

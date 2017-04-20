@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-
 import App from './App'
 
+import timeline from './timeline'
 
 const logger = store => next => action => {
   console.log('dispatching', action)
   let result = next(action)
   console.log('next state', store.getState())
+  timeline.change(store.getState(), action)
+  // debugger
+  // store = timeline.timeChange()
   return result
 }
 
@@ -31,6 +34,7 @@ const crashReporter = store => next => action => {
 
 // 创建全局唯一的store
 const store = createStore(reducer, applyMiddleware(logger, crashReporter))
+// timeline.init(store)
 
 // 要用 Provider 包裹起来
 ReactDOM.render(
