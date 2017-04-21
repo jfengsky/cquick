@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter, matchPath } from 'react-router'
 import layout from '../views/layout'
 import App from '../src/App'
-
+import reducers from '../src/reducers'
 const app = express()
 app.use('/static', express.static('./dist'))
 const routes = [
@@ -31,9 +31,9 @@ app.get('*', (req, res) => {
     }
     
     const content = renderToString(
-      <StaticRouter location={req.url} context={context} >
-        <App />
-      </StaticRouter>
+        <StaticRouter location={req.url} context={context} >
+          <App />
+        </StaticRouter>
     )
     res.status(200).send(layout({ title: 'server',content }))
   // }

@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux'
-
 import { ADD_TODO, TOGGLE_TODO } from '../actions/todo'
 import {SHOW_ALL, SHOW_COMPLETED, SHOW_ACTION} from '../actions/filter'
 

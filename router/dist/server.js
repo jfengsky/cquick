@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,17 +83,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+// import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(11);
 
-var _Home = __webpack_require__(8);
+var _reactRedux = __webpack_require__(12);
+
+var _Home = __webpack_require__(9);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _About = __webpack_require__(7);
+var _About = __webpack_require__(8);
 
 var _About2 = _interopRequireDefault(_About);
 
@@ -111,7 +117,6 @@ var Topic = function Topic(_ref) {
     )
   );
 };
-
 var Topics = function Topics(_ref2) {
   var match = _ref2.match;
   return _react2.default.createElement(
@@ -206,10 +211,45 @@ var App = function App() {
   );
 };
 
-exports.default = App;
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return _extends({}, state);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
+
+// export default App
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var initialState = {
+  count: 0
+};
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'ADD':
+      state.count++;
+      return Object.assign({}, state, {
+        count: count
+      });
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -224,31 +264,31 @@ exports.default = function (props) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router");
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _express = __webpack_require__(3);
+var _express = __webpack_require__(4);
 
 var _express2 = _interopRequireDefault(_express);
 
@@ -256,17 +296,21 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(4);
+var _server = __webpack_require__(5);
 
-var _reactRouter = __webpack_require__(5);
+var _reactRouter = __webpack_require__(6);
 
-var _layout = __webpack_require__(2);
+var _layout = __webpack_require__(3);
 
 var _layout2 = _interopRequireDefault(_layout);
 
 var _App = __webpack_require__(1);
 
 var _App2 = _interopRequireDefault(_App);
+
+var _reducers = __webpack_require__(2);
+
+var _reducers2 = _interopRequireDefault(_reducers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -304,7 +348,7 @@ app.listen(3200, function () {
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -357,7 +401,7 @@ exports.default = About;
 About.propTypes = {};
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -373,7 +417,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _HomeView = __webpack_require__(9);
+var _HomeView = __webpack_require__(10);
 
 var _HomeView2 = _interopRequireDefault(_HomeView);
 
@@ -444,7 +488,7 @@ exports.default = Home;
 Home.propTypes = {};
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -470,10 +514,16 @@ var HomeView = function HomeView(props) {
 exports.default = HomeView;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
 
 /***/ })
 /******/ ]);
