@@ -19,11 +19,15 @@ import { createStore, combineReducers} from 'redux'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
 // import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 import reducers from './reducers'
 
 import App from './App'
 
-// const store = createStore(combineReducers({reducers}))
+// const store = createStore(combineReducers({
+//   ...reducers,
+//   router: routerReducer
+// }))
 
 const store = createStore(reducers)
 

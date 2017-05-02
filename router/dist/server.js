@@ -91,9 +91,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(11);
+var _reactRouterDom = __webpack_require__(12);
 
-var _reactRedux = __webpack_require__(12);
+var _reactRedux = __webpack_require__(11);
 
 var _Home = __webpack_require__(9);
 
@@ -215,9 +215,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return _extends({}, state);
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
+// export default connect(mapStateToProps)(App)
 
-// export default App
+exports.default = App;
 
 /***/ }),
 /* 2 */
@@ -517,13 +517,13 @@ exports.default = HomeView;
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+module.exports = require("react-redux");
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("react-router-dom");
 
 /***/ })
 /******/ ]);
