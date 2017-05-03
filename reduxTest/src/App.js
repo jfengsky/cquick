@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Head from './components/Head'
 import View from './components/View'
 import Foot from './components/Foot'
+import Child from './components/Child'
+import Son from './components/Son'
 
 class App extends Component {
   render() {
@@ -14,6 +16,9 @@ class App extends Component {
         <Head />
         <View />
         <Foot />
+        <Child>
+          <Son />
+        </Child>
       </div>
     );
   }
