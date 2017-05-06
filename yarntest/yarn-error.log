@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add react
+  /usr/local/bin/node /usr/local/bin/yarn add react-dom
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -23,7 +23,10 @@ npm manifest:
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+      "webpack": "^2.4.1"
+    }
   }
 
 yarn manifest: 
@@ -33,8 +36,14 @@ Lockfile:
   No lockfile
 
 Trace: 
-  Error: https://registry.yarnpkg.com/react: ETIMEDOUT
-      at Timeout._onTimeout (/usr/local/Cellar/yarn/0.23.4/libexec/node_modules/request/request.js:852:19)
+  Error: https://registry.yarnpkg.com/react-dom: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (/usr/local/Cellar/yarn/0.23.4/libexec/node_modules/request/request.js:819:19)
+      at Object.onceWrapper (events.js:291:19)
+      at emitNone (events.js:86:13)
+      at ClientRequest.emit (events.js:186:7)
+      at TLSSocket.emitTimeout (_http_client.js:679:10)
+      at Object.onceWrapper (events.js:291:19)
+      at emitNone (events.js:86:13)
+      at TLSSocket.emit (events.js:186:7)
+      at TLSSocket.Socket._onTimeout (net.js:342:8)
       at ontimeout (timers.js:365:14)
-      at tryOnTimeout (timers.js:237:5)
-      at Timer.listOnTimeout (timers.js:207:5)
