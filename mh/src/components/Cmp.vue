@@ -18,6 +18,7 @@ export default {
         this.config = json
       })
     })
+
   },
   methods: {
     hrefAddress: href => `#${href}`

@@ -1,6 +1,7 @@
 <template>
   <div class="demo">
     <Cmp></Cmp>
+    <span>hash: {{currentHash}}</span>
   </div>
 </template>
 <script>
@@ -8,9 +9,10 @@ import Cmp from './components/Cmp'
 export default {
   data() {
     return {
-      
+      currentHash: ''
     }
   },
+  // props: ['hash'],
   // beforeCreate(){
   //   console.log('创建前状态')
   // },
@@ -20,9 +22,11 @@ export default {
   // beforeMount(){
   //   console.log('挂载前状态');
   // },
-  // mounted(){
-
-  // },
+  mounted(){
+    window.addEventListener("hashchange", ev => {
+      this.currentHash = window.location.hash.replace('#','')
+    }, false);
+  },
   // beforeUpdate(){
   //   debugger
   //   console.log('更新前状态');

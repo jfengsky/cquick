@@ -4,12 +4,7 @@ import App from './App'
 const vm = new Vue({
   el: '#app',
   data:{
-    hash: ''
   },
-  template: '<App hash={hash} />',
+  template: '<App />',
   components: {App}
 })
-
-window.addEventListener("hashchange", function(ev){
-  vm.hash = window.location.hash.replace('#','')
-}, false);
