@@ -1,11 +1,14 @@
 <template>
-  <div class="demo">
-    <Cmp></Cmp>
-    <span>hash: {{currentHash}}</span>
+  <div class="container-fluid">
+    <Navbar></Navbar>
+    <router-view></router-view>
+    <!-- <Hashlist></Hashlist> -->
   </div>
 </template>
 <script>
-import Cmp from './components/Cmp'
+import Navbar from './components/Navbar'
+// import Hashlist from './components/Hashlist'
+
 export default {
   data() {
     return {
@@ -22,10 +25,10 @@ export default {
   // beforeMount(){
   //   console.log('挂载前状态');
   // },
-  mounted(){
-    window.addEventListener("hashchange", ev => {
-      this.currentHash = window.location.hash.replace('#','')
-    }, false);
+  mounted() {
+    // window.addEventListener("hashchange", ev => {
+    //   this.currentHash = window.location.hash.replace('#', '')
+    // }, false);
   },
   // beforeUpdate(){
   //   debugger
@@ -41,13 +44,14 @@ export default {
   //   console.log('销毁完成状态');
   // },
   components: {
-    Cmp
+    Navbar
+    // Hashlist
   },
   methods: {
-    
+
   },
   computed: {
-    
+
   }
 }
 </script>

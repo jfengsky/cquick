@@ -1,10 +1,16 @@
 <template>
-  <ul>
-    <li v-for="(item, index) in config" :key="index">
-      <a :href="hrefAddress(item.pattern)">{{item.pattern}}</a>
-    </li>
-  </ul>
+  <div class="row">
+    <div class="col-3">
+      <div class="list-group">
+          <a v-for="(item, index) in config" :key="index" class="list-group-item list-group-item-action" :href="hrefAddress(item.pattern)">{{item.pattern}}</a>
+      </div>
+    </div>
+    <div class="col-9">
+    </div>
+  </div>
 </template>
+
+
 <script>
 export default {
   data() {
