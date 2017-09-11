@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 ReactDOM.render(
     <div>
-        test
+        roots
     </div>,
-    document.getElementById('root')
+    document.getElementById('app')
 )
