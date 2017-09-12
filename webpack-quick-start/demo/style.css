@@ -37,6 +37,7 @@ body {
   padding: 20px
 }
 .main{
+  padding-left: 1px;
   width: 200px;
   height: 360px;
   position: relative;
@@ -52,13 +53,13 @@ body {
   width: 19px;
   height: 19px;
   margin: 0 1px 1px 0;
-  background: #eee;
+  background: #efefef;
   display: block;
   float: left
 }
 
 .item {
-  background: #aaa
+  background: #999
 }
 
 .state {
