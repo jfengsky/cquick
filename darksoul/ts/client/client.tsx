@@ -5,6 +5,9 @@ import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
 
 import { ITLayout, layout } from '../views/layout'
+import { postList, nproxyInfo } from '../src/store/api'
+import nproxyRoute from '../routes/nproxy'
+
 
 const clientPort: number = 4100
 const app: any = express()
@@ -23,6 +26,20 @@ app.get('*', (req: any, res: any) => {
   }
 
   res.send(layout(clientProp))
+})
+
+const success: any = { state: 0, data: null}
+
+app.post('*', async (req: any, res: any) => {
+  if(postList.indexOf(req.path) >= 0){
+    switch(req.path){
+      case nproxyInfo:
+        let sendData = await nproxyRoute(req)
+        return res.send(Object.assign({}, success, sendData))
+    }
+  } else {
+    res.sendStatus('404')
+  }
 })
 
 app.listen(clientPort, () => console.log(`start client: http://localhost:${clientPort}`))

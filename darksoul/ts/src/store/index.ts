@@ -15,5 +15,7 @@ export default {
     link: '/nproxy',
     title: '编辑代理',
     cmp: 'Nproxy'
-  }]
+  }],
+  nproxyList: null,
+  nproxyPath: '/www/cquick/darksoul'
 }
