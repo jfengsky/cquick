@@ -1,20 +1,21 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import { createStore, combineReducers, } from 'redux'
+import { createStore, combineReducers, Store} from 'redux'
 import { Provider } from 'react-redux'
 
+// import { ITStore } from './interface'
+
 import reducers from './reducer'
+import App from './App'
 
-interface ITStore {
-
-}
-
-const store = createStore(reducers)
+const store:  Store<any> = createStore(reducers)
 
 render(
-  <div>
-    root
-  </div>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 )
