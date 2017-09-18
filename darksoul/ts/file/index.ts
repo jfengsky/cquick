@@ -46,3 +46,41 @@ export const writefile = async (data: string) => {
     data: {}
   }
 }
+
+const apiFilePath: string = path.join(__dirname, '../ts/db/api')
+export const readApifile = async () => {
+  let files = await fs.readFileSync( apiFilePath, 'utf-8')
+  return {
+    data: {
+      list: JSON.parse(files)
+    }
+  }
+}
+
+export const writeApifile = async (data: string) => {
+  let wirtes = await fs.writeFileSync(apiFilePath, data)
+  return {
+    data:{}
+  }
+}
+
+export const readApiCodefile = async () => {
+  return {
+    data:{}
+  }
+}
+
+
+interface ITfileCode {
+  fileName: string
+  code: string
+}
+export const writeApiCodefile = async( data: ITfileCode) => {
+  let {
+    fileName,
+    code
+  } = data
+  console.log(code)
+  let wirtes = await fs.writeFileSync( path.join(__dirname, '../nproxy/files/' + fileName), code)
+  return true
+}

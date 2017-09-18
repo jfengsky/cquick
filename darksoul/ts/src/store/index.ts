@@ -17,5 +17,6 @@ export default {
     cmp: 'Nproxy'
   }],
   nproxyList: null,
+  apiList: null,
   nproxyPath: '/www/cquick/darksoul'
 }

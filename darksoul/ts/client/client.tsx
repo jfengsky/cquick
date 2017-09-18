@@ -5,9 +5,10 @@ import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
 
 import { ITLayout, layout } from '../views/layout'
-import { postList, nproxyInfo } from '../src/store/api'
+import { postList, nproxyInfo, apiInfo, apiCode } from '../src/store/api'
 import nproxyRoute from '../routes/nproxy'
-
+import apiRoute from '../routes/apiRoute'
+import apiCodeRoute from '../routes/apiCodeRoute'
 
 const clientPort: number = 4100
 const app: any = express()
@@ -31,10 +32,17 @@ app.get('*', (req: any, res: any) => {
 const success: any = { state: 0, data: null}
 
 app.post('*', async (req: any, res: any) => {
+  let sendData = {}
   if(postList.indexOf(req.path) >= 0){
     switch(req.path){
       case nproxyInfo:
-        let sendData = await nproxyRoute(req)
+        sendData = await nproxyRoute(req)
+        return res.send(Object.assign({}, success, sendData))
+      case apiInfo:
+        sendData = await apiRoute(req)
+        return res.send(Object.assign({}, success, sendData))
+      case apiCode:
+        sendData = await apiCodeRoute(req)
         return res.send(Object.assign({}, success, sendData))
     }
   } else {

@@ -1,1 +1,1 @@
-module.exports=[{"pattern":"v_detail_new","responder":"/www/cquick/darksoul/nproxy/order/v_detail_new.js"},{"pattern":"55555","responder":"/www/cquick/darksoul/nproxy/order/55555"}]
+module.exports=[{"pattern":"v_detail_new.js","responder":"/www/cquick/darksoul/nproxy/order/v_detail_new.js"},{"pattern":"aaa","responder":"/www/cquick/darksoul/nproxy/order/aaa"}]

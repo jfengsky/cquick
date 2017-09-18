@@ -1,5 +1,5 @@
 import initialState from '../store/'
-import { ADD_NPROXY, UP_NPROXY} from '../action'
+import { ADD_NPROXY, UP_NPROXY, UP_APILIST} from '../action'
 
 
 // action接口
@@ -18,6 +18,10 @@ export default (state: any = initialState, action: ITAction) => {
     case UP_NPROXY:
     return Object.assign({}, state, {
       nproxyList: action.value
+    })
+    case UP_APILIST:
+    return Object.assign({}, state, {
+      apiList: action.value
     })
     default:
       return state

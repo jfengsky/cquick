@@ -1,4 +1,4 @@
-import { readfile, writefile } from '../file/'
+import { readApifile, writeApifile } from '../file/'
 
 export default async(req: any) => {
   const {
@@ -10,13 +10,10 @@ export default async(req: any) => {
 
   switch(type){
     case 'read':
-      sendData = await readfile()
+      sendData = await readApifile()
       return Object.assign({}, sendData)
     case 'write':
-
-      // 为了方便移植(mac和win环境),这里用文件来存储数据
-
-      sendData = await writefile(data)
+      sendData = await writeApifile(data)
       return Object.assign({}, sendData)
   }
 }
