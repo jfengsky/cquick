@@ -103,9 +103,20 @@ class Nproxy extends React.Component<ITProps, ITState> {
 
   // 删除代理
   removeNproxy = async (index: number) => {
-    console.log(index)
-    // TODO
-    debugger
+    let {
+      nproxyList,
+      upNproxyList
+    } = this.props
+    let newNproxyList = [...nproxyList]
+    newNproxyList.splice(index, 1)
+    let param: ITNproxy = {
+      type: 'write',
+      data: JSON.stringify(newNproxyList)
+    }
+    let writeState = await FETCH_NPROXY(param)
+    if(!writeState.state){
+      upNproxyList(newNproxyList)
+    }
   }
 }
 
