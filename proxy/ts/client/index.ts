@@ -28,10 +28,9 @@ app.get('*', async (req: any,res: any) => {
 
 app.post('*', async (req: any, res: any) => {
   let data: any= await route(req)
-  // if(type === 'data'){
-
-  // } else {
-
-  // }
-  res.sendFile(filePath(data))
+  if( data.type === 'data'){
+    res.send(data.data)
+  } else {
+    res.sendFile(filePath(data))
+  }
 })

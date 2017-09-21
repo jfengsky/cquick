@@ -1,11 +1,12 @@
 import Vue, { ComponentOptions }  from 'vue'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import { FETCH_API_LIST } from '../store/request'
 import { ITroute, ITFetchApiList } from '../interface/'
 
 interface Menu extends Vue {
   routes: Array<ITroute>
+  updata_apiList: (prop: Array<any>) => {}
 }
 
 export default {
@@ -21,8 +22,19 @@ export default {
     let fetchParam: ITFetchApiList = {
       type: 'search'
     }
+    // TODO
     let fetchBack = await FETCH_API_LIST(fetchParam)
+    this.updata_apiList(fetchBack)
+    debugger
   },
+  methods: mapActions([
+    'updata_apiList'
+  ]),
+  // methods:{
+  //   ...mapActions([
+  //     'fetchApiList'
+  //   ])
+  // },
   computed: mapState([
     'routes'
   ])

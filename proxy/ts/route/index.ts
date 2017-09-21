@@ -20,7 +20,11 @@ export default async (req:any) => {
     case '/':
       return 'layout.html'
     case apilist:
-      return await apiRoute(body)
+      let apiRouteData = await apiRoute(body)
+      return {
+        type: 'data',
+        data: apiRouteData
+      }
 
     // 填写页
     case '/tour/booking/OrderV2/initData':

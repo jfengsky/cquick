@@ -13021,7 +13021,7 @@ if (inBrowser && window.Vue) {
             window.alert(this.message);
         }
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])([
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
         'count'
     ])
 });
@@ -13042,10 +13042,24 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 var mutations = {
     increment: function (state) {
         state.count++;
+    },
+    upApiList: function (state, data) {
+        debugger;
     }
+};
+var actions = {
+    updata_apiList: function (_a, data) {
+        var commit = _a.commit;
+        commit('upApiList');
+    }
+    // fetchApiList({commit, state}: any, data: any) {
+    //   debugger
+    //   commit('upApiList')
+    // }
 };
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     state: __WEBPACK_IMPORTED_MODULE_2__state__["a" /* default */],
+    actions: actions,
     mutations: mutations
 }));
 
@@ -13056,10 +13070,10 @@ var mutations = {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export Store */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapState; });
 /* unused harmony export mapMutations */
 /* unused harmony export mapGetters */
-/* unused harmony export mapActions */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapActions; });
 /* unused harmony export createNamespacedHelpers */
 /**
  * vuex v2.4.0
@@ -14003,12 +14017,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                         return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_1__store_request__["a" /* FETCH_API_LIST */])(fetchParam)];
                     case 1:
                         fetchBack = _a.sent();
+                        this.updata_apiList(fetchBack);
+                        debugger;
                         return [2 /*return*/];
                 }
             });
         });
     },
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])([
+    methods: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])([
+        'updata_apiList'
+    ]),
+    // methods:{
+    //   ...mapActions([
+    //     'fetchApiList'
+    //   ])
+    // },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
         'routes'
     ])
 });
@@ -14020,17 +14044,78 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_request__ = __webpack_require__(13);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: "<div class=\"modify\">\n    <div>\n      <label>\n        \u63A5\u53E3\u540D\u79F0:<input type=\"text\" />\n      </label>\n      <br />\n      <label>\n        \u63A5\u53E3\u63CF\u8FF0:<textarea></textarea>\n      </label>\n      <br />\n      <button>\u65B0\u589E\u63A5\u53E3</button>\n    </div>\n    <hr />\n    <div>\n      <select>\n        <option v-for=\"item in apiList\">{{item.name}}</option>\n      </select>\n      <button>\u4FEE\u6539\u63A5\u53E3</button>\n    </div>\n  </div>",
+    template: "<div class=\"modify\">\n    <div>\n      <label>\n        \u63A5\u53E3\u540D\u79F0:<input type=\"text\" v-model=\"apiName\" />\n      </label>\n      <br />\n      <label>\n        \u63A5\u53E3\u63CF\u8FF0:<textarea v-model=\"apiDesc\"></textarea>\n      </label>\n      <br />\n      <button @click=\"addApi\">\u65B0\u589E\u63A5\u53E3</button>\n    </div>\n    <hr />\n    <div>\n      <select>\n        <option v-for=\"item in apiList\">{{item.name}}</option>\n      </select>\n      <button>\u4FEE\u6539\u63A5\u53E3</button>\n    </div>\n  </div>",
     data: function () {
         return {
-            message: 'Hello Modify'
+            apiName: '',
+            apiDesc: ''
         };
     },
     components: {},
-    methods: {},
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapState */])([
+    methods: {
+        addApi: function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, apiName, apiDesc, addParam, addState;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _a = this, apiName = _a.apiName, apiDesc = _a.apiDesc;
+                            if (!(apiName && apiDesc)) return [3 /*break*/, 2];
+                            addParam = {
+                                type: 'save',
+                                name: apiName,
+                                desc: apiDesc
+                            };
+                            return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_1__store_request__["a" /* FETCH_API_LIST */])(addParam)];
+                        case 1:
+                            addState = _b.sent();
+                            _b.label = 2;
+                        case 2: return [2 /*return*/];
+                    }
+                });
+            });
+        }
+    },
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
         'apiList'
     ])
 });

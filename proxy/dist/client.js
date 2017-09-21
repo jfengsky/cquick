@@ -147,17 +147,15 @@ app.post('*', function (req, res) { return __awaiter(_this, void 0, void 0, func
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_4__route__["a" /* default */])(req)
-                // if(type === 'data'){
-                // } else {
-                // }
-            ];
+            case 0: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_4__route__["a" /* default */])(req)];
             case 1:
                 data = _a.sent();
-                // if(type === 'data'){
-                // } else {
-                // }
-                res.sendFile(filePath(data));
+                if (data.type === 'data') {
+                    res.send(data.data);
+                }
+                else {
+                    res.sendFile(filePath(data));
+                }
                 return [2 /*return*/];
         }
     });
@@ -238,7 +236,7 @@ var _this = this;
 
 
 /* harmony default export */ __webpack_exports__["a"] = (function (req) { return __awaiter(_this, void 0, void 0, function () {
-    var reqPath, query, body, _a;
+    var reqPath, query, body, _a, apiRouteData;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -252,12 +250,15 @@ var _this = this;
                 }
                 return [3 /*break*/, 8];
             case 1: return [2 /*return*/, 'layout.html'];
-            case 2: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_3__apiRoute__["a" /* default */])(body)
-                // 填写页
-            ];
-            case 3: return [2 /*return*/, _b.sent()
-                // 填写页
-            ];
+            case 2: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_3__apiRoute__["a" /* default */])(body)];
+            case 3:
+                apiRouteData = _b.sent();
+                return [2 /*return*/, {
+                        type: 'data',
+                        data: apiRouteData
+                    }
+                    // 填写页
+                ];
             case 4: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_0__initData__["a" /* default */])(query)];
             case 5: return [2 /*return*/, _b.sent()];
             case 6: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_1__LoadBookingInfoV2__["a" /* default */])(body)];
@@ -304,15 +305,80 @@ var apis = [apilist];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__db___ = __webpack_require__(10);
-
-/* harmony default export */ __webpack_exports__["a"] = (function (body) {
-    var type = body.type;
-    switch (type) {
-        case 'search':
-            return __WEBPACK_IMPORTED_MODULE_0__db___["a" /* apiList */].search();
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__db__ = __webpack_require__(10);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
-});;
+};
+var _this = this;
+
+var clearTime = function (data) {
+    var tempData = [];
+    data.map(function (_a) {
+        var _id = _a._id, name = _a.name, desc = _a.desc;
+        tempData.push({
+            _id: _id,
+            name: name,
+            desc: desc
+        });
+    });
+    return tempData;
+};
+/* harmony default export */ __webpack_exports__["a"] = (function (body) { return __awaiter(_this, void 0, void 0, function () {
+    var result, type, desc, name, id, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                result = {};
+                type = body.type, desc = body.desc, name = body.name, id = body.id;
+                _a = type;
+                switch (_a) {
+                    case 'search': return [3 /*break*/, 1];
+                    case 'save': return [3 /*break*/, 3];
+                }
+                return [3 /*break*/, 4];
+            case 1: return [4 /*yield*/, __WEBPACK_IMPORTED_MODULE_0__db__["a" /* apiListDB */].search()];
+            case 2:
+                result = _b.sent();
+                return [2 /*return*/, clearTime(result)];
+            case 3:
+                result = __WEBPACK_IMPORTED_MODULE_0__db__["a" /* apiListDB */].save({ name: name, desc: desc });
+                return [2 /*return*/, result];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });;
 
 
 /***/ }),
@@ -320,16 +386,169 @@ var apis = [apilist];
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return apiList; });
-var apiList = {
-    search: function () {
-        return [{
-                id: 1,
-                name: '/tour/',
-                desc: '描述'
-            }];
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__apiList__ = __webpack_require__(12);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__apiList__["a"]; });
+
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongodb");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(13);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+
+var colName = 'apiList';
+/* harmony default export */ __webpack_exports__["a"] = ({
+    search: function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var connect, collection, db, where;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])(colName)];
+                    case 1:
+                        connect = _a.sent();
+                        collection = connect.collection, db = connect.db;
+                        where = {};
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                collection.find(where).toArray(function (err, result) {
+                                    resolve(result);
+                                    db.close();
+                                });
+                            })];
+                }
+            });
+        });
+    },
+    save: function (_a) {
+        var name = _a.name, desc = _a.desc;
+        return __awaiter(this, void 0, void 0, function () {
+            var connect, collection, db;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, Object(__WEBPACK_IMPORTED_MODULE_0__config__["a" /* default */])(colName)];
+                    case 1:
+                        connect = _a.sent();
+                        collection = connect.collection, db = connect.db;
+                        return [2 /*return*/, collection.insert({ name: name, desc: desc, time: new Date().getTime() }, function (err, docs) {
+                                db.close();
+                                return docs;
+                            })];
+                }
+            });
+        });
+    }
+});
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongodb__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mongodb___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mongodb__);
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _this = this;
+
+var MongoClient = __WEBPACK_IMPORTED_MODULE_0_mongodb___default.a.MongoClient;
+var URL = 'mongodb://localhost:27017/myproject';
+/* harmony default export */ __webpack_exports__["a"] = (function (name) {
+    return new Promise(function (resolve, reject) {
+        MongoClient.connect(URL, function (err, db) { return __awaiter(_this, void 0, void 0, function () {
+            var collection;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, db.collection(name)];
+                    case 1:
+                        collection = _a.sent();
+                        if (err) {
+                            reject(err);
+                        }
+                        else {
+                            resolve({ collection: collection, db: db });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+});;
 
 
 /***/ })
