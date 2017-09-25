@@ -5,13 +5,17 @@ import { ITroute } from '../interface/'
 import Home from '../components/Home'
 import Api from '../components/Api'
 import Modify from '../components/Modify'
+import ApiInfo from '../components/ApiInfo'
+import MockList from '../components/MockList'
 
 Vue.use(Router)
 
 const cmps: any = {
   Home,
   Api,
-  Modify
+  Modify,
+  ApiInfo,
+  MockList
 }
 
 let routes: Array<ITroute> = [...state.routes]

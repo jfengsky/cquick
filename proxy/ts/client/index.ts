@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
 import * as path from 'path'
 import route from '../route'
+import reqRoute from './reqRoute'
 
 const port: number = 8989
 
@@ -23,7 +24,12 @@ app.use(express.static('./dist'))
 
 app.get('*', async (req: any,res: any) => {
   let data: any = await route(req)
-  res.sendFile(filePath(data))
+  if( data.type === 'data'){
+    res.send(data.data)
+  } else {
+    res.sendFile(filePath(await reqRoute(req.path)))
+    // res.sendFile(filePath(data))
+  }
 })
 
 app.post('*', async (req: any, res: any) => {
@@ -31,6 +37,7 @@ app.post('*', async (req: any, res: any) => {
   if( data.type === 'data'){
     res.send(data.data)
   } else {
-    res.sendFile(filePath(data))
+    res.sendFile(filePath(await reqRoute(req.path)))
+    // res.sendFile(filePath(data))
   }
 })

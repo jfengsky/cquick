@@ -1,10 +1,11 @@
 import connectDB, { ObjectID }  from './config'
 
-const colName: string = 'apiList'
+const colName: string = 'mockList'
 
 interface ITSave {
   name: string
   desc: string
+  pid: string
 }
 
 interface ITDelete {
@@ -13,11 +14,8 @@ interface ITDelete {
 
 interface ITModify {
   id: string
-  name: string,
   desc: string
 }
-
-// declare const PromiseObject: any
 
 export default {
   async search(id?: string): Promise<any> {
@@ -37,14 +35,14 @@ export default {
     
 
   },
-  async save({name, desc}: ITSave): Promise<any> {
+  async save({name, desc, pid}: ITSave): Promise<any> {
     let connect: any = await connectDB(colName)
     let {
       collection,
       db
     } = connect
     return new Promise((resolve, reject): void => {
-      collection.insert({name, desc, time: new Date().getTime()}, (err: any, docs: any): void =>{
+      collection.insert({name, desc, pid, time: new Date().getTime()}, (err: any, docs: any): void =>{
         resolve(docs)
         db.close()
       })
@@ -68,7 +66,7 @@ export default {
     })
   },
 
-  async modify({id, name, desc}: ITModify): Promise<any> {
+  async modify({id, desc}: ITModify): Promise<any> {
     let connect: any = await connectDB(colName)
     let {
       collection,
@@ -78,7 +76,7 @@ export default {
       let where = {
         _id: new ObjectID(id)
       }
-      collection.update(where,{$set:{name,desc,time: new Date().getTime()}}, (err: any, docs: any) => {
+      collection.update(where,{$set:{desc,time: new Date().getTime()}}, (err: any, docs: any) => {
         resolve(docs.result)
         db.close()
       })

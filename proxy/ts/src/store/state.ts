@@ -8,15 +8,15 @@ export default {
   },{
     path: '/modify',
     name: 'Modify'
-  }],
-  apiList: [{
-    id: 0,
-    name: '/tour/booking/OrderV2/initData',
-    file: ''
   },{
-    id:1,
-    name: '/bookingnext/LoadBookingInfoV2',
-    file: ''
+    path:'/apiInfo',
+    name: 'ApiInfo'
+  },{
+    path:'/mocklist',
+    name: 'MockList'
   }],
+  apiList: [],
+  mockList: [],
+  fileMockList: [],
   count: 0
 }

@@ -18,3 +18,41 @@ export interface ITFetchApiList {
   // 接口id，由mongodb生成的 delete search时用
   id?: string
 }
+
+// 接口详细信息
+export interface ITApiListInfo {
+  _id: string
+  name: string
+  desc: string
+}
+
+export interface ITFetchMockList {
+  type: 'save' | 'delete' | 'modify' | 'search' | 'readCode'
+
+  // 文件名
+  name?: string
+
+  desc?: string
+
+  code?: string
+
+  // 所属api的id
+  pid?: string
+
+  id?: string
+
+}
+
+export interface ITMockListInfo {
+  _id: string
+  name: string
+  desc: string
+  code: string
+  pid: string
+}
+
+export interface ITFileList {
+  type: 'add' | 'delete' | 'modify' | 'search'
+  pid?: string
+  id?: string
+}

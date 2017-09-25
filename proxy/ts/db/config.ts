@@ -1,6 +1,7 @@
 import mongodb from 'mongodb'
 const MongoClient: any = mongodb.MongoClient
 const URL: string = 'mongodb://localhost:27017/myproject'
+export const ObjectID = mongodb.ObjectID
 
 export default (name: string): Promise<any> => {
   return new Promise((resolve, reject) => {
