@@ -11408,8 +11408,8 @@ process.umask = function() { return 0; };
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__router___ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Menu__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Menu__ = __webpack_require__(21);
 
 
 
@@ -11464,7 +11464,7 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_Api__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_Modify__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_ApiInfo__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_MockList__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_MockList__ = __webpack_require__(17);
 
 
 
@@ -14009,7 +14009,7 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
-    template: '<div class="demo">{{message}}</div>',
+    template: "<div class=\"demo\">\n              <ul>\n                <li><a href=\"http://localhost:3000/tour/booking/OrderV2?shoppingid=6a58df6c49954f4aa3aa0d7633229191\" target=\"_blank\">\u586B\u5199\u9875</a></li>\n              </ul>\n            </div>",
     data: function () {
         return {
             message: 'Hello Message'
@@ -14644,11 +14644,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_request__ = __webpack_require__(1);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    template: "<div>\n              <ul>\n                <li v-for=\"item in fileMockList\">\n                  <div>{{item}}</div>\n                  <button @click=\"deleteData(item)\">\u5220\u9664</button>\n                </li>\n              </ul>\n            </div>",
+    data: function () {
+        return {};
+    },
+    components: {},
+    methods: {
+        deleteData: function (data) {
+            Object(__WEBPACK_IMPORTED_MODULE_1__store_request__["b" /* FETCH_MOCK_CHANGE */])({
+                type: 'delete',
+                id: data._id
+            });
+        },
+    },
+    computed: __assign({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
+        'fileMockList'
+    ]))
+});
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__state__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__actions__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__(20);
 
 
 
@@ -14663,7 +14700,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14696,7 +14733,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14740,7 +14777,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14860,43 +14897,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
         'routes'
     ])
-});
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_request__ = __webpack_require__(1);
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    template: "<div>\n              <ul>\n                <li v-for=\"item in fileMockList\">\n                  <div>{{item}}</div>\n                  <button @click=\"deleteData(item)\">\u5220\u9664</button>\n                </li>\n              </ul>\n            </div>",
-    data: function () {
-        return {};
-    },
-    components: {},
-    methods: {
-        deleteData: function (data) {
-            Object(__WEBPACK_IMPORTED_MODULE_1__store_request__["b" /* FETCH_MOCK_CHANGE */])({
-                type: 'delete',
-                id: data._id
-            });
-        },
-    },
-    computed: __assign({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])([
-        'fileMockList'
-    ]))
 });
 
 

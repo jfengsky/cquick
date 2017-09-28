@@ -9,7 +9,8 @@ export default {
       if(!name){
         name = 'p' + new Date().getTime()
       }
-      fs.writeFile(filePath(name), decodeURIComponent(code), 'utf-8', err => {
+      fs.writeFile(filePath(name), code, 'utf-8', err => {
+        console.log(err)
         resolve(name)
       })
     })

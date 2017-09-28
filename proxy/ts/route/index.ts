@@ -1,11 +1,13 @@
-
-import initData from './initData'
-import LoadBookingInfoV2 from './LoadBookingInfoV2'
-
 import { apilist, mocklist, mockchange } from '../apis'
 import apiRoute from './apiRoute'
 import mockRoute from './mockRoute'
 import fileRoute from './fileRoute'
+
+interface ITApiListInfo {
+  _id: any
+  name: string
+  desc: string
+}
 
 export default async (req:any) => {
   let {
@@ -17,6 +19,19 @@ export default async (req:any) => {
     query: any
     body: any
   } = req
+
+
+  let baseRouteList: Array<ITApiListInfo> = await apiRoute({
+    type: 'search'
+  })
+
+  let routeList: Array<string> = baseRouteList.map( (item:ITApiListInfo) => item.name)
+
+  if(routeList.indexOf(reqPath) >= 0 ){
+    return {
+      type: 'file'
+    }
+  }
 
   switch(reqPath){
     case '/':
@@ -44,10 +59,5 @@ export default async (req:any) => {
         type:'data',
         data: ''
       }
-    // 填写页
-    // case '/tour/booking/OrderV2/initData':
-    //   return await initData(query)
-    // case '/bookingnext/LoadBookingInfoV2':
-    //   return await LoadBookingInfoV2(body)
   }
 }
