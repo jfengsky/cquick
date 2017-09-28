@@ -45,9 +45,9 @@ export default async (req:any) => {
         data: ''
       }
     // 填写页
-    case '/tour/booking/OrderV2/initData':
-      return await initData(query)
-    case '/bookingnext/LoadBookingInfoV2':
-      return await LoadBookingInfoV2(body)
+    // case '/tour/booking/OrderV2/initData':
+    //   return await initData(query)
+    // case '/bookingnext/LoadBookingInfoV2':
+    //   return await LoadBookingInfoV2(body)
   }
 }
