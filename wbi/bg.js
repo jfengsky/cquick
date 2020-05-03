@@ -1,4 +1,6 @@
-
+/**
+ * 发送数据到本地node服务
+ */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // console.log(request)
     $.ajax({

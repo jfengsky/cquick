@@ -1,3 +1,6 @@
+/**
+ * 保存图片
+ */
 const HTTP = require('http')
 const HTTPS = require('https')
 const fs = require('fs')
@@ -66,12 +69,10 @@ const save = data => {
     if (!hasDir) {
         fs.mkdirSync(`./${dirName}`)
         console.log('创建目录成功')
-        // formatImageList(imageSrcList, dirName)
+        formatImageList(imageSrcList, dirName)
     } else {
         console.log('目录存在，创建失败')
     }
-    formatImageList(imageSrcList, dirName)
-
 }
 
 module.exports = save

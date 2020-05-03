@@ -1,3 +1,6 @@
+/**
+ * 解析页面结构，获取相关信息
+ */
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // console.log(request)
     let type = 'success'

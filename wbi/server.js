@@ -1,3 +1,6 @@
+/**
+ * 启动本体服务器等待插件发来的信息
+ */
 const express = require('express')
 const bodyParser = require('body-parser')
 const save = require('./save')
