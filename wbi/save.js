@@ -56,7 +56,7 @@ const getData = (imageUrl, dir, index) => {
         res.on('end', () => {
             let img = Buffer.concat(arr)
 
-            if (img.length > 185) {
+            if (img.length > 1000) {
                 fs.writeFile(`./${rootDir}/${dir}/${fileName}`, img, () => {
                     console.log(`${index + 1}:success`)
                 })
