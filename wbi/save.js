@@ -6,12 +6,17 @@ const HTTPS = require('https')
 const fs = require('fs')
 const url = require('url')
 
+const rootDir = 'images'
+
 const formatImageList = (list, dir) => {
     if (!list || !list.length) {
         console.log('图片目录为空')
     } else {
         console.log(`开始下载${list.length}张图片`)
         list.map((item, index) => {
+            if (/(http:|https:)/i.test(item)) {
+                item = item.replace(/(http:|https:)/i, '')
+            }
             getData(`https:${item}`, dir, index)
         })
     }
@@ -50,9 +55,12 @@ const getData = (imageUrl, dir, index) => {
         })
         res.on('end', () => {
             let img = Buffer.concat(arr)
-            fs.writeFile(`./${dir}/${fileName}`, img, () => {
-                console.log(`${index + 1}:success`)
-            })
+
+            if (img.length > 185) {
+                fs.writeFile(`./${rootDir}/${dir}/${fileName}`, img, () => {
+                    console.log(`${index + 1}:success`)
+                })
+            }
         })
     })
 
@@ -67,7 +75,7 @@ const save = data => {
     let dirName = name + time
     let hasDir = fs.existsSync(`./${dirName}`)
     if (!hasDir) {
-        fs.mkdirSync(`./${dirName}`)
+        fs.mkdirSync(`./${rootDir}/${dirName}`)
         console.log('创建目录成功')
         formatImageList(imageSrcList, dirName)
     } else {
@@ -76,6 +84,3 @@ const save = data => {
 }
 
 module.exports = save
-// getData('https://wx2.sinaimg.cn/large/d96daab9gy1geegqwx3ukj21400u0gy1.jpg')
-
-// fs.mkdirSync('aaa')

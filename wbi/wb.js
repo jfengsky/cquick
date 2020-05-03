@@ -17,9 +17,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const imageList = $('.choose_box img')
         const tilte = $('title').text()
 
-        $.map(imageList, function (item) {
-            imageSrcList.push($(item).attr('src'))
-        })
+        if(imageList.length){
+            $.map(imageList, function (item) {
+                imageSrcList.push($(item).attr('src'))
+            })
+        } else {
+            let bigImage = $('.media_show_box img')
+            imageSrcList.push(bigImage.attr('src'))
+        }
 
         chrome.runtime.sendMessage({ imageSrcList, tilte, name, time })
     } else {
