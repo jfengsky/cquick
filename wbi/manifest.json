@@ -1,0 +1,32 @@
+{
+    "name": "weibo img",
+    "description": "weibo images download",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons": {
+        "16": "icon-16.png"
+    },
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://weibo.com/*"],
+            "js": ["jquery-3.5.0.min.js", "wb.js"],
+            "run_at": "document_start",
+            "all_frames": true
+        }
+    ],
+    "background": {
+        "scripts": ["jquery-3.5.0.min.js", "bg.js"],
+        "persistent": false
+    },
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "https://weibo.com/",
+        "https://*.weibo.com/",
+        "http://localhost:3000/"
+      ]
+}
