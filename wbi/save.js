@@ -66,6 +66,7 @@ const getData = (imageUrl, dir, index, callback) => {
                 fs.writeFile(`./${rootDir}/${dir}/${fileName}`, img, () => {
                     console.log(`${index + 1}:success`)
                     callback()
+                    img = null
                 })
             }
         })
@@ -79,7 +80,7 @@ const getData = (imageUrl, dir, index, callback) => {
 
 const formatTime = time => {
     let dateObj = new Date(time - 0)
-    return `${dateObj.getFullYear()}.${dateObj.getMonth() + 1}.${dateObj.getDate()}.${dateObj.getSeconds()}`
+    return `${dateObj.getFullYear()}.${dateObj.getMonth() + 1}.${dateObj.getDate()}.${dateObj.getHours()}.${dateObj.getMinutes()}.${dateObj.getSeconds()}`
 }
 
 const save = data => {
