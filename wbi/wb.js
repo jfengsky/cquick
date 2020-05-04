@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         const name = $('.WB_info a').text()
 
         // 时间
-        const time = $($('.WB_detail .WB_from a')[0]).text()
+        const time = $($('.WB_detail .WB_from a')[0]).attr('date')
 
         // 图片
         let imageSrcList = []
