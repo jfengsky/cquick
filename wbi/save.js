@@ -57,6 +57,7 @@ const getData = (imageUrl, dir, index, callback) => {
         path: filePath
     }, res => {
         let arr = []
+        let startTime = new Date().getTime()
         res.on('data', buffer => {
             arr.push(buffer)
         })
@@ -64,7 +65,9 @@ const getData = (imageUrl, dir, index, callback) => {
             let img = Buffer.concat(arr)
             if (img.length > 1000) {
                 fs.writeFile(`./${rootDir}/${dir}/${fileName}`, img, () => {
-                    console.log(`${index + 1}:success`)
+                    let endTime = new Date().getTime()
+                    let saveTime = endTime - startTime
+                    console.log(`${index + 1}:success ${saveTime/1000}s`)
                     callback()
                     img = null
                 })
