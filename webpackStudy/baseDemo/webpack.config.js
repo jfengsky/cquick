@@ -5,5 +5,10 @@ module.exports = {
     output: {
         filename: 'build.js',
         path: resolve(__dirname, 'build')
+    },
+    module: {
+        rules: [{
+             
+        }]
     }
 }
