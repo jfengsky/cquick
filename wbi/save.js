@@ -58,7 +58,10 @@ const getData = (imageUrl, dir, index, callback) => {
     }, res => {
         let arr = []
         let startTime = new Date().getTime()
+        let buffIndex = 0
         res.on('data', buffer => {
+            buffIndex++
+            console.log(buffIndex)
             arr.push(buffer)
         })
         res.on('end', () => {
